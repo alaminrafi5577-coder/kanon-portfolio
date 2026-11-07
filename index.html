@@ -3,68 +3,87 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Md. Kanon Ahmed | Software Engineer</title>
-<meta name="description" content="Md. Kanon Ahmed - MSc Software Engineering graduate from University of Malaya. Software developer based in Selangor, Malaysia.">
+<title>Md. Kanon Ahmed | Vice Chairman, Yeepix Limited</title>
+<meta name="description" content="Md. Kanon Ahmed - Software Engineer (MSc, University of Malaya) and Vice Chairman of Yeepix Limited, an international education, visa and careers consultancy based in Banasree, Dhaka.">
 <meta name="theme-color" content="#0b1020">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Md. Kanon Ahmed | Vice Chairman, Yeepix Limited">
+<meta property="og:description" content="Software Engineer and Vice Chairman of Yeepix Limited. Education, visa, overseas careers and skills training. Grow Smart. Go Global.">
+<meta property="og:image" content="https://www.ahmedkanon.com/photo.jpg">
+<meta property="og:url" content="https://www.ahmedkanon.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2338bdf8'/%3E%3Cstop offset='.55' stop-color='%23a78bfa'/%3E%3Cstop offset='1' stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='700' font-size='34' text-anchor='middle' fill='white'%3EK%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Person","name":"Md. Kanon Ahmed","jobTitle":"Vice Chairman","worksFor":{"@type":"Organization","name":"Yeepix Limited"},"alumniOf":"University of Malaya","email":"mailto:ahmedkanon1994@gmail.com","url":"https://www.ahmedkanon.com/"},
+{"@type":"Organization","name":"Yeepix Limited","slogan":"Grow Smart. Go Global.","url":"https://www.yeepix.global","email":"info@yeepix.global","telephone":"+8801921629543","address":{"@type":"PostalAddress","streetAddress":"House 40, Level-2, Unit-B, Road-7, Block-C, Banasree, Rampura","addressLocality":"Dhaka","postalCode":"1219","addressCountry":"BD"}}
+]}
+</script>
 <style>
   :root{
     --bg:#0b1020; --bg2:#10172e; --card:rgba(255,255,255,.05); --card-b:rgba(255,255,255,.09);
-    --text:#e8ecf8; --muted:#9aa6c4; --a1:#38bdf8; --a2:#a78bfa; --a3:#f472b6;
+    --text:#e8ecf8; --muted:#9aa6c4; --a1:#38bdf8; --a2:#a78bfa; --a3:#f472b6; --ok:#34d399;
     --grad:linear-gradient(135deg,var(--a1),var(--a2) 55%,var(--a3));
     --shadow:0 20px 50px rgba(0,0,0,.35);
   }
   :root[data-theme="light"]{
-    --bg:#f6f8ff; --bg2:#eaefff; --card:rgba(255,255,255,.85); --card-b:rgba(15,23,60,.08);
-    --text:#121a33; --muted:#56628a; --shadow:0 20px 50px rgba(60,80,160,.14);
+    --bg:#f6f8ff; --bg2:#eaefff; --card:rgba(255,255,255,.88); --card-b:rgba(15,23,60,.09);
+    --text:#121a33; --muted:#56628a; --shadow:0 20px 50px rgba(60,80,160,.15);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  html{scroll-behavior:smooth;scroll-padding-top:76px}
   body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden;transition:background .3s,color .3s}
-  h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;line-height:1.2}
+  h1,h2,h3,h4{font-family:"Space Grotesk",Inter,sans-serif;line-height:1.2}
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+  img{max-width:100%}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
   .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  :focus-visible{outline:2px solid var(--a1);outline-offset:3px;border-radius:6px}
 
-  /* background blobs */
-  .blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.28;z-index:-1;pointer-events:none}
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:100}
+  .blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.26;z-index:-1;pointer-events:none}
   .b1{width:460px;height:460px;background:var(--a1);top:-120px;left:-120px;animation:float 14s ease-in-out infinite}
   .b2{width:420px;height:420px;background:var(--a2);top:30%;right:-140px;animation:float 18s ease-in-out infinite reverse}
   .b3{width:380px;height:380px;background:var(--a3);bottom:-140px;left:20%;animation:float 16s ease-in-out infinite}
-  :root[data-theme="light"] .blob{opacity:.18}
+  :root[data-theme="light"] .blob{opacity:.16}
   @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,50px)}}
 
   /* nav */
   nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,box-shadow .3s}
-  nav.scrolled{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--card-b)}
-  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+  nav.scrolled{background:color-mix(in srgb,var(--bg) 84%,transparent);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--card-b)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:66px}
   .logo{font-family:"Space Grotesk";font-weight:700;font-size:1.25rem}
   .logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  nav ul{display:flex;gap:26px;list-style:none;align-items:center}
-  nav ul a{color:var(--muted);font-size:.95rem;font-weight:500;transition:color .2s}
-  nav ul a:hover{color:var(--text)}
+  nav ul{display:flex;gap:22px;list-style:none;align-items:center}
+  nav ul a.lk{color:var(--muted);font-size:.92rem;font-weight:500;transition:color .2s;position:relative}
+  nav ul a.lk:hover,nav ul a.lk.active{color:var(--text)}
+  nav ul a.lk.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--grad);border-radius:2px}
   .theme-btn{background:var(--card);border:1px solid var(--card-b);color:var(--text);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem}
   .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.6rem;cursor:pointer}
 
-  /* hero */
-  .hero{min-height:100vh;display:flex;align-items:center;padding:110px 0 70px}
-  .hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center}
-  .badge{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--card-b);padding:7px 16px;border-radius:999px;font-size:.85rem;color:var(--muted);margin-bottom:22px}
-  .dot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2s infinite}
-  @keyframes pulse{70%{box-shadow:0 0 0 10px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
-  .hero h1{font-size:clamp(2.4rem,6vw,4rem);font-weight:700;letter-spacing:-.02em}
-  .typing{font-family:"Space Grotesk";font-size:clamp(1.15rem,2.6vw,1.6rem);font-weight:500;margin:14px 0 20px;min-height:2.2rem}
-  .typing .cursor{display:inline-block;width:3px;height:1.2em;background:var(--a1);margin-left:3px;vertical-align:-.2em;animation:blink 1s steps(2) infinite}
-  @keyframes blink{50%{opacity:0}}
-  .hero p.lead{color:var(--muted);font-size:1.08rem;max-width:540px}
-  .btns{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
-  .btn{padding:13px 26px;border-radius:12px;font-weight:600;font-size:.98rem;transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:8px}
+  /* buttons */
+  .btns{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{padding:13px 26px;border-radius:12px;font-weight:600;font-size:.96rem;transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:0;font-family:inherit;color:var(--text)}
   .btn:hover{transform:translateY(-3px)}
   .btn.primary{background:var(--grad);color:#fff;box-shadow:0 10px 30px rgba(124,92,255,.4)}
   .btn.ghost{background:var(--card);border:1px solid var(--card-b)}
-  .socials{margin-top:30px;display:flex;gap:12px}
+  .btn.sm{padding:10px 18px;font-size:.88rem}
+
+  /* hero */
+  .hero{min-height:100vh;display:flex;align-items:center;padding:112px 0 70px}
+  .hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--card-b);padding:7px 16px;border-radius:999px;font-size:.84rem;color:var(--muted);margin-bottom:22px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 10px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+  .hero h1{font-size:clamp(2.4rem,6vw,4rem);font-weight:700;letter-spacing:-.02em}
+  .typing{font-family:"Space Grotesk";font-size:clamp(1.1rem,2.6vw,1.55rem);font-weight:500;margin:14px 0 20px;min-height:2.2rem}
+  .typing .cursor{display:inline-block;width:3px;height:1.2em;background:var(--a1);margin-left:3px;vertical-align:-.2em;animation:blink 1s steps(2) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .hero p.lead{color:var(--muted);font-size:1.06rem;max-width:560px}
+  .hero .btns{margin-top:30px}
+  .socials{margin-top:28px;display:flex;gap:12px}
   .socials a{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--card);border:1px solid var(--card-b);transition:.2s}
   .socials a:hover{background:var(--grad);color:#fff;transform:translateY(-3px)}
   .socials svg{width:20px;height:20px;fill:currentColor}
@@ -74,18 +93,26 @@
   .photo-wrap::after{content:"";position:absolute;inset:-34px;border-radius:50%;border:1px dashed var(--card-b);animation:spin 30s linear infinite reverse}
   .photo-wrap img{position:relative;z-index:1;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 18%;border:6px solid var(--bg);box-shadow:var(--shadow)}
   @keyframes spin{to{transform:rotate(360deg)}}
-  .chip{position:absolute;z-index:2;background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--card-b);padding:9px 15px;border-radius:14px;font-size:.82rem;font-weight:600;box-shadow:var(--shadow);animation:bob 5s ease-in-out infinite}
-  .chip.c1{top:6%;left:-14%}
-  .chip.c2{bottom:14%;right:-12%;animation-delay:-2.5s}
+  .chip{position:absolute;z-index:2;background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--card-b);padding:9px 15px;border-radius:14px;font-size:.8rem;font-weight:600;box-shadow:var(--shadow);animation:bob 5s ease-in-out infinite;white-space:nowrap}
+  .chip.c1{top:4%;left:-16%}
+  .chip.c2{bottom:12%;right:-14%;animation-delay:-2.5s}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* trust strip */
+  .strip{padding:0 0 30px}
+  .strip .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .strip .item{text-align:center;padding:18px 10px}
+  .strip .item b{display:block;font-family:"Space Grotesk";font-size:1.05rem}
+  .strip .item span{color:var(--muted);font-size:.82rem}
 
   /* sections */
   section{padding:90px 0}
-  .eyebrow{color:var(--a1);font-weight:600;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+  .eyebrow{color:var(--a1);font-weight:600;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
   h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:14px}
-  .sub{color:var(--muted);max-width:600px;margin-bottom:44px}
+  .sub{color:var(--muted);max-width:640px;margin-bottom:44px}
   .glass{background:var(--card);border:1px solid var(--card-b);border-radius:20px;padding:26px;backdrop-filter:blur(10px);transition:transform .25s,border-color .25s,box-shadow .25s}
-  .glass:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--a2) 60%,transparent);box-shadow:var(--shadow)}
+  .glass.hover:hover,.grid>.glass:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--a2) 60%,transparent);box-shadow:var(--shadow)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
 
   .about{display:grid;grid-template-columns:1.3fr 1fr;gap:34px;align-items:start}
   .about p{color:var(--muted);margin-bottom:14px}
@@ -94,141 +121,354 @@
   .stat b{display:block;font-family:"Space Grotesk";font-size:2rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .stat span{color:var(--muted);font-size:.85rem}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+  /* yeepix */
+  .yeepix-hero{display:grid;grid-template-columns:1.25fr 1fr;gap:26px;align-items:stretch}
+  .yx-main{position:relative;overflow:hidden;padding:36px}
+  .yx-main::before{content:"";position:absolute;inset:0;background:var(--grad);opacity:.09;z-index:-1}
+  .yx-logo{font-family:"Space Grotesk";font-weight:700;font-size:2.4rem;letter-spacing:-.02em}
+  .yx-tag{color:var(--a1);font-weight:600;margin:4px 0 16px}
+  .yx-main p{color:var(--muted);margin-bottom:12px}
+  .yx-main .btns{margin-top:20px}
+  .vm{display:grid;gap:16px}
+  .vm .glass h3{font-size:.8rem;letter-spacing:.14em;color:var(--a2);text-transform:uppercase;margin-bottom:8px}
+  .vm .glass p{color:var(--muted);font-size:.93rem}
+  .values{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .values span{background:var(--bg2);border:1px solid var(--card-b);padding:7px 15px;border-radius:999px;font-size:.86rem;font-weight:600}
+
+  .people{margin-top:46px}
+  .people h3{font-size:1.3rem;margin-bottom:20px}
+  .person{text-align:center}
+  .avatar{width:64px;height:64px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-family:"Space Grotesk";font-weight:700;font-size:1.3rem;margin:0 auto 14px}
+  .person.me .avatar{background:url(photo.jpg) center 20%/cover;box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--a1)}
+  .person h4{font-size:1.02rem}
+  .person .role{color:var(--a1);font-size:.86rem;font-weight:500}
+  .person .you{display:inline-block;margin-top:8px;font-size:.72rem;font-weight:600;background:rgba(56,189,248,.15);color:var(--a1);padding:3px 10px;border-radius:999px}
+
+  /* services */
+  .svc .num{font-family:"Space Grotesk";font-size:.8rem;font-weight:700;color:var(--a2);letter-spacing:.12em}
+  .svc .ico{font-size:1.9rem;margin:8px 0 10px}
+  .svc h3{font-size:1.08rem;margin-bottom:8px}
+  .svc p{color:var(--muted);font-size:.9rem}
+  .svc .note{display:inline-block;margin-top:12px;font-size:.72rem;font-weight:600;background:rgba(244,114,182,.15);color:var(--a3);padding:3px 10px;border-radius:999px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
+  .two h3{font-size:1.05rem;margin-bottom:14px}
+  .tags{display:flex;flex-wrap:wrap;gap:10px}
+  .tags span{background:var(--bg2);border:1px solid var(--card-b);padding:7px 14px;border-radius:999px;font-size:.86rem;font-weight:500;transition:.2s}
+  .tags span:hover{background:var(--grad);color:#fff;border-color:transparent;transform:translateY(-2px)}
+  .disclaimer{color:var(--muted);font-size:.84rem;margin-top:14px}
+
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
+  .step{padding:20px}
+  .step .n{width:34px;height:34px;border-radius:10px;background:var(--grad);color:#fff;display:grid;place-items:center;font-family:"Space Grotesk";font-weight:700;margin-bottom:12px}
+  .step h4{font-size:.98rem;margin-bottom:4px}
+  .step p{color:var(--muted);font-size:.84rem}
+  .phase{display:flex;align-items:center;gap:12px;margin:34px 0 0}
+  .phase h3{font-size:1.2rem}
+  .phase small{color:var(--muted)}
+
+  .promise{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:20px}
+  .promise div{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:.92rem}
+  .promise div::before{content:"✓";color:var(--ok);font-weight:700}
+
+  /* office */
+  .office{display:grid;grid-template-columns:1fr 1.25fr;gap:24px;align-items:stretch}
+  .office-info{display:flex;flex-direction:column;gap:16px}
+  .row{display:flex;gap:14px;align-items:flex-start}
+  .row .i{flex:0 0 42px;height:42px;border-radius:12px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:1.1rem}
+  .row b{display:block;font-size:.8rem;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.08em}
+  .row a:hover{color:var(--a1)}
+  .row span.v{font-weight:500}
+  .map{border-radius:20px;overflow:hidden;border:1px solid var(--card-b);min-height:380px;box-shadow:var(--shadow);position:relative;background:var(--bg2)}
+  .map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  :root:not([data-theme="light"]) .map iframe{filter:invert(.9) hue-rotate(180deg) saturate(.8)}
+  .reg{margin-top:24px}
+  .reg h3{font-size:1.05rem;margin-bottom:16px}
+  .reg dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+  .reg dt{font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .reg dd{font-weight:500;font-size:.94rem}
+  .verified{display:inline-flex;align-items:center;gap:6px;color:var(--ok);font-size:.8rem;font-weight:600}
+
+  /* timeline */
+  .timeline{position:relative;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--a1),var(--a2),var(--a3));border-radius:2px}
+  .t-item{position:relative;margin-bottom:22px}
+  .t-item::before{content:"";position:absolute;left:-34px;top:26px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:4px solid var(--a2)}
+  .t-item.now::before{border-color:var(--ok);box-shadow:0 0 0 6px rgba(52,211,153,.18)}
+  .t-item h3{font-size:1.12rem}
+  .t-item .co{color:var(--a1);font-weight:500;font-size:.95rem}
+  .t-item .date{color:var(--muted);font-size:.85rem;margin-top:2px}
+  .t-item .desc{color:var(--muted);font-size:.9rem;margin-top:8px}
+  .pill{display:inline-block;background:rgba(52,211,153,.15);color:var(--ok);font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:999px;margin-left:8px;vertical-align:middle}
+
   .edu .year{display:inline-block;background:var(--grad);color:#fff;font-size:.78rem;font-weight:600;padding:4px 12px;border-radius:999px;margin-bottom:14px}
   .edu h3{font-size:1.1rem;margin-bottom:6px}
   .edu .where{color:var(--a1);font-size:.92rem;font-weight:500}
   .edu p{color:var(--muted);font-size:.9rem;margin-top:8px}
 
-  .timeline{position:relative;padding-left:34px}
-  .timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--a1),var(--a2),var(--a3));border-radius:2px}
-  .t-item{position:relative;margin-bottom:22px}
-  .t-item::before{content:"";position:absolute;left:-34px;top:26px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:4px solid var(--a2)}
-  .t-item.now::before{border-color:#34d399;box-shadow:0 0 0 6px rgba(52,211,153,.18)}
-  .t-item h3{font-size:1.12rem}
-  .t-item .co{color:var(--a1);font-weight:500;font-size:.95rem}
-  .t-item .date{color:var(--muted);font-size:.85rem;margin-top:2px}
-  .pill{display:inline-block;background:rgba(52,211,153,.15);color:#34d399;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:999px;margin-left:8px;vertical-align:middle}
-
   .skill-group h3{font-size:1.05rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
   .skill-group h3 i{font-style:normal;font-size:1.3rem}
-  .tags{display:flex;flex-wrap:wrap;gap:10px}
-  .tags span{background:var(--bg2);border:1px solid var(--card-b);padding:7px 14px;border-radius:999px;font-size:.88rem;font-weight:500;transition:.2s}
-  .tags span:hover{background:var(--grad);color:#fff;border-color:transparent;transform:translateY(-2px)}
 
-  .contact-box{text-align:center;padding:56px 26px;background:var(--card);border:1px solid var(--card-b);border-radius:28px;position:relative;overflow:hidden}
-  .contact-box::before{content:"";position:absolute;inset:0;background:var(--grad);opacity:.1;z-index:-1}
-  .contact-box h2{margin-bottom:12px}
-  .contact-box p{color:var(--muted);max-width:480px;margin:0 auto 30px}
-  .contact-info{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px;color:var(--muted);font-size:.92rem}
+  /* contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .cbox{padding:34px;position:relative;overflow:hidden}
+  .cbox.main::before{content:"";position:absolute;inset:0;background:var(--grad);opacity:.1;z-index:-1}
+  .cbox h3{font-size:1.3rem;margin-bottom:6px}
+  .cbox>p{color:var(--muted);margin-bottom:20px;font-size:.93rem}
+  .cbox .row{margin-bottom:14px}
 
-  footer{padding:30px 0;text-align:center;color:var(--muted);font-size:.88rem;border-top:1px solid var(--card-b)}
+  footer{padding:44px 0 30px;border-top:1px solid var(--card-b)}
+  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px}
+  .foot h4{font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:12px}
+  .foot ul{list-style:none;display:grid;gap:8px;font-size:.92rem}
+  .foot a:hover{color:var(--a1)}
+  .foot p{color:var(--muted);font-size:.9rem;max-width:340px}
+  .copy{text-align:center;color:var(--muted);font-size:.82rem;margin-top:34px;padding-top:22px;border-top:1px solid var(--card-b)}
 
-  /* reveal */
+  #top{position:fixed;right:20px;bottom:22px;width:46px;height:46px;border-radius:14px;border:0;background:var(--grad);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:0 10px 30px rgba(124,92,255,.45);opacity:0;pointer-events:none;transform:translateY(12px);transition:.3s;z-index:60}
+  #top.show{opacity:1;pointer-events:auto;transform:none}
+
   .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
   .reveal.show{opacity:1;transform:none}
   .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
 
+  @media(max-width:980px){
+    nav ul{position:fixed;top:66px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--card-b);padding:8px 22px 16px;transform:translateY(-130%);transition:transform .3s;z-index:-1}
+    nav ul.open{transform:none}
+    nav ul li{padding:12px 0;border-bottom:1px solid var(--card-b)}
+    nav ul a.lk.active::after{display:none}
+    .menu-btn{display:block}
+  }
   @media(max-width:860px){
     .hero .wrap{grid-template-columns:1fr;text-align:center}
     .hero p.lead{margin:0 auto}
-    .btns,.socials{justify-content:center}
+    .hero .btns,.socials{justify-content:center}
     .photo-wrap{order:-1;width:min(260px,70vw)}
-    .chip.c1{left:-8%}.chip.c2{right:-8%}
-    .about{grid-template-columns:1fr}
-    nav ul{position:fixed;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--card-b);padding:8px 22px 16px;transform:translateY(-130%);transition:transform .3s;z-index:-1}
-    nav ul.open{transform:none}
-    nav ul li{width:100%;padding:12px 0;border-bottom:1px solid var(--card-b)}
-    .menu-btn{display:block}
+    .chip.c1{left:-6%}.chip.c2{right:-6%}
+    .about,.yeepix-hero,.office,.two,.contact-grid,.foot{grid-template-columns:1fr}
+    .strip .grid4,.steps{grid-template-columns:1fr 1fr}
+    .yx-main{padding:26px}
   }
-  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+  @media(max-width:480px){.steps{grid-template-columns:1fr}.chip{font-size:.72rem;padding:7px 11px}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
+<div id="progress"></div>
 <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
 
 <nav id="nav">
   <div class="wrap">
     <a href="#home" class="logo">Kanon<span>.</span></a>
     <ul id="menu">
-      <li><a href="#about">About</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><button class="theme-btn" id="theme" aria-label="Toggle theme">🌙</button></li>
+      <li><a class="lk" href="#about">About</a></li>
+      <li><a class="lk" href="#yeepix">Yeepix</a></li>
+      <li><a class="lk" href="#services">Services</a></li>
+      <li><a class="lk" href="#office">Dhaka Office</a></li>
+      <li><a class="lk" href="#experience">Experience</a></li>
+      <li><a class="lk" href="#education">Education</a></li>
+      <li><a class="lk" href="#skills">Skills</a></li>
+      <li><a class="btn primary sm" href="#contact">Contact</a></li>
+      <li><button class="theme-btn" id="theme" aria-label="Toggle light or dark theme">🌙</button></li>
     </ul>
-    <button class="menu-btn" id="burger" aria-label="Menu">☰</button>
+    <button class="menu-btn" id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
   </div>
 </nav>
 
+<!-- HERO -->
 <header class="hero" id="home">
   <div class="wrap">
     <div>
-      <div class="badge reveal"><span class="dot"></span> Open to new opportunities</div>
+      <div class="badge reveal"><span class="dot"></span> Vice Chairman · Yeepix Limited</div>
       <h1 class="reveal d1">Hi, I'm <span class="grad-text">Md. Kanon Ahmed</span></h1>
       <div class="typing reveal d2"><span id="type"></span><span class="cursor"></span></div>
-      <p class="lead reveal d2">MSc in Software Engineering from University of Malaya. I enjoy solving technology problems that make a real difference for organizations and teams.</p>
+      <p class="lead reveal d2">Software engineer (MSc, University of Malaya) and co-leader of <strong>Yeepix Limited</strong>, a Dhaka based consultancy helping students and professionals with education, visas, overseas careers and skills training.</p>
       <div class="btns reveal d3">
-        <a class="btn primary" href="#contact">Get in touch &rarr;</a>
-        <a class="btn ghost" href="#experience">View experience</a>
+        <a class="btn primary" href="#yeepix">Explore Yeepix &rarr;</a>
+        <a class="btn ghost" href="#office">📍 Dhaka Office</a>
+        <a class="btn ghost" href="#contact">Contact</a>
       </div>
       <div class="socials reveal d3">
         <a href="mailto:ahmedkanon1994@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.4.5 7.6 5.6L19.6 6H4.4Zm15.6 2.5-7.4 5.4a1 1 0 0 1-1.2 0L4 8.5V18.5c0 .3.2.5.5.5h15c.3 0 .5-.2.5-.5v-10Z"/></svg></a>
-        <a href="tel:+60173637523" aria-label="Phone"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.300.2 2.500.6 3.600.1.300 0 .700-.2 1l-2.300 2.200Z"/></svg></a>
-        <a href="https://wa.me/60173637523" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.200-1.400A10 10 0 1 0 12 2Zm5.200 14.200c-.2.600-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.100-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.400 0 .600l-.4.600c-.2.200-.3.400-.1.700.2.300.8 1.300 1.700 2.100 1.200 1 2.100 1.300 2.400 1.500.3.100.5.100.7-.1l.9-1.100c.2-.3.400-.2.700-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.400Z"/></svg></a>
+        <a href="tel:+60173637523" aria-label="Phone"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg></a>
+        <a href="https://wa.me/60173637523" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.2 14.200c-.2.600-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.100-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.400 0 .6l-.4.600c-.2.200-.3.400-.1.700.2.300.8 1.300 1.700 2.100 1.200 1 2.100 1.300 2.400 1.500.3.100.5.100.7-.1l.9-1.100c.2-.3.4-.2.7-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.400Z"/></svg></a>
+        <a href="https://www.yeepix.global" target="_blank" rel="noopener" aria-label="Yeepix website"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.900 9h-3a15.500 15.500 0 0 0-1.300-5.500A8 8 0 0 1 18.900 11ZM12 4c.9 1.200 1.700 3.200 2 7H10c.3-3.800 1.100-5.800 2-7ZM9.400 5.500A15.500 15.500 0 0 0 8.100 11h-3a8 8 0 0 1 4.300-5.500ZM5.100 13h3c.1 2 .6 3.900 1.300 5.500A8 8 0 0 1 5.100 13ZM12 20c-.9-1.200-1.700-3.200-2-7h4c-.3 3.800-1.100 5.800-2 7Zm2.600-1.500c.7-1.600 1.200-3.500 1.300-5.500h3a8 8 0 0 1-4.300 5.500Z"/></svg></a>
       </div>
     </div>
     <div class="photo-wrap reveal d2">
-      <img src="photo.jpg" alt="Md. Kanon Ahmed">
-      <div class="chip c1">🎓 University of Malaya</div>
-      <div class="chip c2">💻 Software Developer</div>
+      <img src="photo.jpg" alt="Portrait of Md. Kanon Ahmed">
+      <div class="chip c1">🏢 Vice Chairman, Yeepix</div>
+      <div class="chip c2">🎓 MSc · University of Malaya</div>
     </div>
   </div>
 </header>
 
+<div class="strip">
+  <div class="wrap">
+    <div class="grid4">
+      <div class="glass item reveal"><b>Yeepix Limited</b><span>Private limited company</span></div>
+      <div class="glass item reveal d1"><b>Est. July 2026</b><span>RJSC Reg. No. 212218</span></div>
+      <div class="glass item reveal d2"><b>Dhaka HQ</b><span>Banasree, Rampura</span></div>
+      <div class="glass item reveal d3"><b>Grow Smart. Go Global.</b><span>Our promise</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
 <section id="about">
   <div class="wrap">
     <div class="eyebrow reveal">About me</div>
-    <h2 class="reveal">Dedicated, proactive &amp; <span class="grad-text">team focused</span></h2>
+    <h2 class="reveal">Engineer, entrepreneur &amp; <span class="grad-text">team builder</span></h2>
     <div class="about">
       <div class="reveal">
-        <p>I completed my Master's degree in Software Engineering (Software Technology) at University of Malaya, the top ranked university in Malaysia and 59th in the world in the 2021 QS ranking. My research focuses on a Traffic Control System.</p>
-        <p>I am happy to take on bigger responsibilities and challenges, and I work closely with teams to deliver project plans and resolve issues. I want to help with technology problems that have a direct impact on the organization.</p>
-        <p>Outside work I enjoy football, cricket and badminton, and I take part in volunteer activities.</p>
+        <p>I hold a Master's degree in Software Engineering (Software Technology) from University of Malaya, ranked 59th in the world in the 2021 QS ranking. My research focuses on a Traffic Control System.</p>
+        <p>Today I serve as <strong>Vice Chairman of Yeepix Limited</strong>, a company we founded in 2026 to bridge Bangladeshi students, professionals and skilled workers with world-class international opportunities, while continuing my work as a software developer.</p>
+        <p>I am dedicated, proactive and happy to take on bigger responsibilities. I work closely with teams to deliver plans, resolve issues and solve technology problems that have a direct impact on organizations. Outside work I enjoy football, cricket and badminton, and I take part in volunteer activities.</p>
       </div>
       <div class="stats">
-        <div class="glass stat reveal d1"><b>#59</b><span>QS World Ranking<br>University of Malaya</span></div>
-        <div class="glass stat reveal d2"><b>2</b><span>University<br>Degrees</span></div>
-        <div class="glass stat reveal d2"><b>3.66</b><span>B.Sc. CGPA<br>out of 4.00</span></div>
-        <div class="glass stat reveal d3"><b>3.40</b><span>M.Sc. CGPA<br>out of 4.00</span></div>
+        <div class="glass stat reveal d1"><b data-count="59" data-prefix="#">#59</b><span>QS World Ranking<br>University of Malaya</span></div>
+        <div class="glass stat reveal d2"><b data-count="2">2</b><span>University<br>Degrees</span></div>
+        <div class="glass stat reveal d2"><b data-count="5">5</b><span>Yeepix<br>Service Areas</span></div>
+        <div class="glass stat reveal d3"><b data-count="8">8</b><span>Step client<br>Journey</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="education">
+<!-- YEEPIX -->
+<section id="yeepix">
   <div class="wrap">
-    <div class="eyebrow reveal">Education</div>
-    <h2 class="reveal">My academic <span class="grad-text">journey</span></h2>
-    <p class="sub reveal">From school in Tangail to a Master's degree in Malaysia.</p>
-    <div class="grid edu">
-      <div class="glass reveal"><span class="year">2021</span><h3>M.Sc. Software Engineering</h3><div class="where">University of Malaya</div><p>Software Technology &middot; CGPA 3.40 / 4.00</p></div>
-      <div class="glass reveal d1"><span class="year">2017</span><h3>B.Sc. (Hons) Computer Science</h3><div class="where">Lincoln University College</div><p>Network Technology &amp; Cyber Security &middot; CGPA 3.66 / 4.00</p></div>
-      <div class="glass reveal d2"><span class="year">2011</span><h3>H.S.C. Science</h3><div class="where">Sristy College of Tangail</div><p>GPA 5.00 / 5.00</p></div>
-      <div class="glass reveal d3"><span class="year">2009</span><h3>S.S.C. Science</h3><div class="where">H.M. Institution</div><p>GPA 5.00 / 5.00</p></div>
+    <div class="eyebrow reveal">My company</div>
+    <h2 class="reveal">Yeepix <span class="grad-text">Limited</span></h2>
+    <p class="sub reveal">A venture built on a simple purpose: put people before paperwork.</p>
+
+    <div class="yeepix-hero">
+      <div class="glass yx-main reveal">
+        <div class="yx-logo grad-text">Yeepix</div>
+        <div class="yx-tag">Grow Smart. Go Global.</div>
+        <p>Yeepix specialises in international education consultancy, visa processing, overseas employment services, workforce training and global career development, all under one integrated service roof.</p>
+        <p>Headquartered in Banasree, Rampura, Dhaka, we serve clients across Bangladesh and internationally, built on integrity, transparency and a client centred approach.</p>
+        <div class="btns">
+          <a class="btn primary sm" href="https://www.yeepix.global" target="_blank" rel="noopener">Visit yeepix.global ↗</a>
+          <a class="btn ghost sm" href="mailto:info@yeepix.global">info@yeepix.global</a>
+        </div>
+      </div>
+      <div class="vm">
+        <div class="glass reveal d1"><h3>Our vision</h3><p>To be recognised as a leading international consultancy trusted by students, professionals and skilled workers in Bangladesh, empowering them through education, overseas employment and career development.</p></div>
+        <div class="glass reveal d2"><h3>Our belief</h3><p>Education consultancy is not about simply securing admission. It is about understanding each student's goals and helping them make the right decision for their future.</p></div>
+      </div>
+    </div>
+
+    <div class="values reveal">
+      <span>🤝 Integrity</span><span>⭐ Excellence</span><span>💡 Innovation</span><span>🎯 Commitment</span><span>🌍 Global Mindset</span>
+    </div>
+
+    <div class="people">
+      <h3 class="reveal">Leadership team</h3>
+      <div class="grid">
+        <div class="glass person me reveal"><div class="avatar"></div><h4>Md. Kanon Ahmed</h4><div class="role">Vice Chairman</div><span class="you">That's me</span></div>
+        <div class="glass person reveal d1"><div class="avatar">SH</div><h4>Shahin Hasan</h4><div class="role">Managing Director &amp; CEO</div></div>
+        <div class="glass person reveal d2"><div class="avatar">AG</div><h4>Avijit Ghosh</h4><div class="role">Director &amp; COO</div></div>
+        <div class="glass person reveal d3"><div class="avatar">SS</div><h4>Shakhawat Hossain Sajal</h4><div class="role">Chief Marketing Officer</div></div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow reveal">What Yeepix does</div>
+    <h2 class="reveal">Five services, <span class="grad-text">one journey</span></h2>
+    <p class="sub reveal">Most consultancies handle only study abroad or only visas. Yeepix covers the full client journey with one team that knows your story.</p>
+
+    <div class="grid">
+      <div class="glass svc reveal"><div class="num">SERVICE 01</div><div class="ico">🎓</div><h3>International Education Consultancy</h3><p>University matching, admissions, scholarships and pre-departure support.</p></div>
+      <div class="glass svc reveal d1"><div class="num">SERVICE 02</div><div class="ico">🛂</div><h3>Visa Consultancy</h3><p>Documents, checklists and interview guidance, end to end.</p></div>
+      <div class="glass svc reveal d2"><div class="num">SERVICE 03</div><div class="ico">💼</div><h3>Overseas Employment &amp; Recruitment</h3><p>Legal, transparent pathways for skilled and semi-skilled workers.</p><span class="note">BMET certification in progress</span></div>
+      <div class="glass svc reveal d1"><div class="num">SERVICE 04</div><div class="ico">🛠️</div><h3>Workforce Training &amp; Skills</h3><p>Practical programmes that make people employable at home and abroad.</p></div>
+      <div class="glass svc reveal d2"><div class="num">SERVICE 05</div><div class="ico">🚀</div><h3>Career Development</h3><p>CV, LinkedIn, interview coaching and internship placement.</p></div>
+    </div>
+
+    <div class="two">
+      <div class="glass reveal">
+        <h3>🌏 Study destinations</h3>
+        <div class="tags"><span>Malaysia</span><span>United Kingdom</span><span>Canada</span><span>Australia</span><span>USA</span><span>Europe</span><span>Others on request</span></div>
+      </div>
+      <div class="glass reveal d1">
+        <h3>📄 Visa categories</h3>
+        <div class="tags"><span>Student</span><span>Tourist</span><span>Business</span><span>Visit</span><span>Work / Employment</span><span>Dependent</span></div>
+        <p class="disclaimer">Visa decisions rest with embassies and immigration authorities. We prepare you thoroughly but never guarantee outcomes.</p>
+      </div>
+    </div>
+
+    <div class="phase reveal"><h3>How we work: <span class="grad-text">8 clear steps</span></h3></div>
+    <div class="steps">
+      <div class="glass step reveal"><div class="n">1</div><h4>Free consultation</h4><p>A no-obligation session on your goals, background and budget.</p></div>
+      <div class="glass step reveal d1"><div class="n">2</div><h4>Needs assessment</h4><p>Review of qualifications, language scores, finances and preferences.</p></div>
+      <div class="glass step reveal d2"><div class="n">3</div><h4>Strategic planning</h4><p>A personal roadmap: shortlist, timeline, scholarships, visa pathway.</p></div>
+      <div class="glass step reveal d3"><div class="n">4</div><h4>Documentation</h4><p>SOPs, recommendation letters, transcripts and visa paperwork.</p></div>
+      <div class="glass step reveal"><div class="n">5</div><h4>Application &amp; visa</h4><p>University and visa applications submitted with professional oversight.</p></div>
+      <div class="glass step reveal d1"><div class="n">6</div><h4>Progress updates</h4><p>Status updates, embassy liaison and prompt replies to requests.</p></div>
+      <div class="glass step reveal d2"><div class="n">7</div><h4>Placement</h4><p>Offer and visa confirmation, pre-departure briefing, housing guidance.</p></div>
+      <div class="glass step reveal d3"><div class="n">8</div><h4>After-service support</h4><p>Ongoing contact after arrival and referrals to the next stage.</p></div>
+    </div>
+
+    <div class="glass reveal" style="margin-top:26px">
+      <h3 style="font-size:1.05rem">Our promise to every client</h3>
+      <div class="promise">
+        <div>Genuine documentation only</div><div>Honest eligibility assessment</div><div>Transparent, clear pricing</div>
+        <div>No unrealistic promises</div><div>No hidden costs</div><div>Clear communication at every step</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DHAKA OFFICE -->
+<section id="office">
+  <div class="wrap">
+    <div class="eyebrow reveal">Visit us</div>
+    <h2 class="reveal">Our <span class="grad-text">Dhaka office</span></h2>
+    <p class="sub reveal">Walk in for a free first consultation. Students, parents, workers and partners are all welcome.</p>
+
+    <div class="office">
+      <div class="glass office-info reveal">
+        <div class="row"><div class="i">📍</div><div><b>Registered office</b><span class="v">House 40, Level-2, Unit-B, Road-7, Block-C, Banasree, Rampura, Dhaka-1219, Bangladesh</span></div></div>
+        <div class="row"><div class="i">📞</div><div><b>Phone</b><span class="v"><a href="tel:+8801921629543">+880 1921-629543</a><br><a href="tel:+601738466084">+60 17-384 6084</a> (Malaysia)</span></div></div>
+        <div class="row"><div class="i">✉️</div><div><b>Email</b><span class="v"><a href="mailto:info@yeepix.global">info@yeepix.global</a></span></div></div>
+        <div class="row"><div class="i">🌐</div><div><b>Website</b><span class="v"><a href="https://www.yeepix.global" target="_blank" rel="noopener">www.yeepix.global</a></span></div></div>
+        <div class="btns" style="margin-top:auto">
+          <a class="btn primary sm" href="https://www.google.com/maps/search/?api=1&query=Banasree+Rampura+Dhaka+1219" target="_blank" rel="noopener">Get directions ↗</a>
+          <a class="btn ghost sm" href="mailto:info@yeepix.global">Book free consultation</a>
+        </div>
+      </div>
+      <div class="map reveal d1">
+        <iframe title="Map of Yeepix Limited office in Banasree, Rampura, Dhaka" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Banasree%20Block%20C%20Rampura%20Dhaka%201219&z=15&output=embed"></iframe>
+      </div>
+    </div>
+
+    <div class="glass reg reveal">
+      <h3>✅ A company you can verify</h3>
+      <dl>
+        <div><dt>Legal name</dt><dd>Yeepix Limited (private limited company)</dd></div>
+        <div><dt>Certificate of incorporation</dt><dd>No. C-212218/2026, issued 22 July 2026 by the Registrar of Joint Stock Companies &amp; Firms</dd></div>
+        <div><dt>Trade licence</dt><dd>Issued by Dhaka North City Corporation</dd></div>
+        <div><dt>Tax</dt><dd>Registered taxpayer with the National Board of Revenue (NBR)</dd></div>
+        <div><dt>Business activities</dt><dd>Educational consultancy, IT &amp; software, marketing, import &amp; export, consultancy</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
 <section id="experience">
   <div class="wrap">
     <div class="eyebrow reveal">Experience</div>
     <h2 class="reveal">Where I have <span class="grad-text">worked</span></h2>
-    <p class="sub reveal">From hospitality to network administration, management and software development.</p>
+    <p class="sub reveal">From hospitality to network administration, management, software development and now building my own company.</p>
     <div class="timeline">
-      <div class="t-item now glass reveal"><h3>Software Developer <span class="pill">Current &middot; Part-Time</span></h3><div class="co">JSOFT Solution Sdn Bhd</div></div>
+      <div class="t-item now glass reveal"><h3>Vice Chairman <span class="pill">Current</span></h3><div class="co">Yeepix Limited · Dhaka, Bangladesh</div><div class="date">July 2026 &ndash; Present</div><div class="desc">Co-leading a young international education, visa, overseas employment and skills training company from its foundation.</div></div>
+      <div class="t-item now glass reveal"><h3>Software Developer <span class="pill">Current · Part-Time</span></h3><div class="co">JSOFT Solution Sdn Bhd</div></div>
       <div class="t-item now glass reveal"><h3>Manager <span class="pill">Current</span></h3><div class="co">Salsabil Kausar Sdn Bhd</div><div class="date">May 2020 &ndash; Present</div></div>
       <div class="t-item glass reveal"><h3>Network System Administrator</h3><div class="co">Rain Drop Maintenance Services Sdn Bhd</div><div class="date">Dec 2017 &ndash; Mar 2018</div></div>
       <div class="t-item glass reveal"><h3>Server</h3><div class="co">Tony Roma's Restaurant</div><div class="date">Feb 2015 &ndash; Jan 2016</div></div>
@@ -237,74 +477,145 @@
   </div>
 </section>
 
+<!-- EDUCATION -->
+<section id="education">
+  <div class="wrap">
+    <div class="eyebrow reveal">Education</div>
+    <h2 class="reveal">My academic <span class="grad-text">journey</span></h2>
+    <p class="sub reveal">From school in Tangail to a Master's degree in Malaysia.</p>
+    <div class="grid edu">
+      <div class="glass reveal"><span class="year">2021</span><h3>M.Sc. Software Engineering</h3><div class="where">University of Malaya</div><p>Software Technology · CGPA 3.40 / 4.00</p></div>
+      <div class="glass reveal d1"><span class="year">2017</span><h3>B.Sc. (Hons) Computer Science</h3><div class="where">Lincoln University College</div><p>Network Technology &amp; Cyber Security · CGPA 3.66 / 4.00</p></div>
+      <div class="glass reveal d2"><span class="year">2011</span><h3>H.S.C. Science</h3><div class="where">Sristy College of Tangail</div><p>GPA 5.00 / 5.00</p></div>
+      <div class="glass reveal d3"><span class="year">2009</span><h3>S.S.C. Science</h3><div class="where">H.M. Institution</div><p>GPA 5.00 / 5.00</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
 <section id="skills">
   <div class="wrap">
     <div class="eyebrow reveal">Skills</div>
     <h2 class="reveal">What I <span class="grad-text">bring</span></h2>
-    <p class="sub reveal">Technical know-how combined with strong people skills.</p>
+    <p class="sub reveal">Technical know-how combined with business and people skills.</p>
     <div class="grid">
       <div class="glass skill-group reveal"><h3><i>💻</i> Programming</h3><div class="tags"><span>C++</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Software Customization</span></div></div>
       <div class="glass skill-group reveal d1"><h3><i>🌐</i> Networking</h3><div class="tags"><span>Network Administration</span><span>Cyber Security</span><span>Network Technology</span></div></div>
-      <div class="glass skill-group reveal d2"><h3><i>📊</i> Office Tools</h3><div class="tags"><span>Microsoft Word</span><span>Microsoft Excel</span><span>PowerPoint</span></div></div>
-      <div class="glass skill-group reveal d3"><h3><i>🤝</i> Soft Skills</h3><div class="tags"><span>Management</span><span>Leadership</span><span>Volunteering</span><span>Team Work</span></div></div>
+      <div class="glass skill-group reveal d2"><h3><i>🏢</i> Business</h3><div class="tags"><span>Company Leadership</span><span>Management</span><span>Education Consultancy</span><span>Partnerships</span></div></div>
+      <div class="glass skill-group reveal d3"><h3><i>🤝</i> Soft Skills</h3><div class="tags"><span>Leadership</span><span>Volunteering</span><span>Team Work</span><span>Problem Solving</span></div></div>
+      <div class="glass skill-group reveal"><h3><i>📊</i> Office Tools</h3><div class="tags"><span>Microsoft Word</span><span>Microsoft Excel</span><span>PowerPoint</span></div></div>
     </div>
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
   <div class="wrap">
-    <div class="contact-box reveal">
-      <div class="eyebrow">Contact</div>
-      <h2>Let's <span class="grad-text">work together</span></h2>
-      <p>Have a project, an opportunity or just want to say hello? My inbox is always open.</p>
-      <div class="btns" style="justify-content:center;margin-top:0">
-        <a class="btn primary" href="mailto:ahmedkanon1994@gmail.com">✉ Email me</a>
-        <a class="btn ghost" href="https://wa.me/60173637523" target="_blank" rel="noopener">WhatsApp</a>
+    <div class="eyebrow reveal">Contact</div>
+    <h2 class="reveal">Let's <span class="grad-text">work together</span></h2>
+    <p class="sub reveal">Have a project, a study or career plan, or a partnership idea? Reach out to me directly or to the Yeepix team.</p>
+    <div class="contact-grid">
+      <div class="glass cbox main reveal">
+        <h3>Md. Kanon Ahmed</h3>
+        <p>Software engineer &amp; Vice Chairman</p>
+        <div class="row"><div class="i">✉️</div><div><b>Email</b><span class="v"><a href="mailto:ahmedkanon1994@gmail.com">ahmedkanon1994@gmail.com</a></span></div></div>
+        <div class="row"><div class="i">📞</div><div><b>Phone / WhatsApp</b><span class="v"><a href="https://wa.me/60173637523" target="_blank" rel="noopener">+60 17-363 7523</a></span></div></div>
+        <div class="row"><div class="i">📍</div><div><b>Based in</b><span class="v">Puncak Alam, Selangor, Malaysia</span></div></div>
+        <div class="btns" style="margin-top:20px"><a class="btn primary sm" href="mailto:ahmedkanon1994@gmail.com">✉ Email me</a><a class="btn ghost sm" href="https://wa.me/60173637523" target="_blank" rel="noopener">WhatsApp</a></div>
       </div>
-      <div class="contact-info">
-        <span>📧 ahmedkanon1994@gmail.com</span>
-        <span>📞 +60 17-363 7523</span>
-        <span>📍 Puncak Alam, Selangor, Malaysia</span>
+      <div class="glass cbox reveal d1">
+        <h3>Yeepix Limited</h3>
+        <p>Education · Visa · Careers · Training</p>
+        <div class="row"><div class="i">✉️</div><div><b>Email</b><span class="v"><a href="mailto:info@yeepix.global">info@yeepix.global</a></span></div></div>
+        <div class="row"><div class="i">📞</div><div><b>Phone</b><span class="v"><a href="tel:+8801921629543">+880 1921-629543</a></span></div></div>
+        <div class="row"><div class="i">📍</div><div><b>Dhaka office</b><span class="v">House 40, Level-2, Unit-B, Road-7, Block-C, Banasree, Rampura, Dhaka-1219</span></div></div>
+        <div class="btns" style="margin-top:20px"><a class="btn primary sm" href="https://www.yeepix.global" target="_blank" rel="noopener">Visit website ↗</a><a class="btn ghost sm" href="#office">See map</a></div>
       </div>
     </div>
   </div>
 </section>
 
-<footer>&copy; 2026 Md. Kanon Ahmed. All rights reserved.</footer>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a href="#home" class="logo">Kanon<span>.</span></a>
+        <p style="margin-top:10px">Software engineer and Vice Chairman of Yeepix Limited. Grow Smart. Go Global.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="#about">About</a></li><li><a href="#yeepix">Yeepix</a></li><li><a href="#services">Services</a></li><li><a href="#office">Dhaka Office</a></li></ul>
+      </div>
+      <div>
+        <h4>Reach us</h4>
+        <ul><li><a href="mailto:ahmedkanon1994@gmail.com">ahmedkanon1994@gmail.com</a></li><li><a href="mailto:info@yeepix.global">info@yeepix.global</a></li><li><a href="https://www.yeepix.global" target="_blank" rel="noopener">www.yeepix.global</a></li></ul>
+      </div>
+    </div>
+    <div class="copy">&copy; 2026 Md. Kanon Ahmed. All rights reserved. &middot; Yeepix Limited, RJSC Reg. No. 212218</div>
+  </div>
+</footer>
+
+<button id="top" aria-label="Back to top">↑</button>
 
 <script>
-  // sticky nav shadow
-  const nav=document.getElementById('nav');
-  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+  const $=s=>document.querySelector(s);
+  const nav=$('#nav'), bar=$('#progress'), topBtn=$('#top');
+
+  // scroll: nav shadow, progress bar, back-to-top
+  function onScroll(){
+    const y=scrollY, h=document.documentElement.scrollHeight-innerHeight;
+    nav.classList.toggle('scrolled',y>20);
+    bar.style.width=(h>0?y/h*100:0)+'%';
+    topBtn.classList.toggle('show',y>600);
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  topBtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
 
   // mobile menu
-  const menu=document.getElementById('menu');
-  document.getElementById('burger').onclick=()=>menu.classList.toggle('open');
-  menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+  const menu=$('#menu'), burger=$('#burger');
+  burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded','false')}));
 
   // theme toggle
-  const root=document.documentElement, tbtn=document.getElementById('theme');
+  const root=document.documentElement, tbtn=$('#theme');
   let saved=null; try{saved=localStorage.getItem('theme')}catch(e){}
   function setTheme(t){root.dataset.theme=t;tbtn.textContent=t==='light'?'☀️':'🌙';try{localStorage.setItem('theme',t)}catch(e){}}
   setTheme(saved||'dark');
   tbtn.onclick=()=>setTheme(root.dataset.theme==='light'?'dark':'light');
 
   // typing effect
-  const words=['Software Engineer','Software Developer','Network & Security Graduate','Team Leader'];
-  const el=document.getElementById('type');
-  let w=0,c=0,del=false;
+  const words=['Vice Chairman at Yeepix Limited','Software Engineer','MSc, University of Malaya','Entrepreneur & Team Builder'];
+  const el=$('#type'); let w=0,c=0,del=false;
   (function tick(){
     const word=words[w];
     el.textContent=word.slice(0,c);
-    if(!del&&c===word.length){del=true;return setTimeout(tick,1400)}
+    if(!del&&c===word.length){del=true;return setTimeout(tick,1500)}
     if(del&&c===0){del=false;w=(w+1)%words.length}
     c+=del?-1:1;
-    setTimeout(tick,del?45:85);
+    setTimeout(tick,del?40:80);
   })();
 
-  // scroll reveal
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}}),{threshold:.12});
+  // scroll reveal + count-up
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function countUp(n){
+    const end=+n.dataset.count, pre=n.dataset.prefix||'', t0=performance.now(), dur=1200;
+    (function f(t){const p=Math.min((t-t0)/dur,1);n.textContent=pre+Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0);
+  }
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    e.target.classList.add('show');
+    e.target.querySelectorAll('[data-count]').forEach(n=>{if(!reduce)countUp(n)});
+    io.unobserve(e.target);
+  }),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(n=>io.observe(n));
+
+  // active nav link
+  const links=[...document.querySelectorAll('nav a.lk')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const so=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}
+  }),{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>s&&so.observe(s));
 </script>
 </body>
 </html>
