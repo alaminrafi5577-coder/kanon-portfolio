@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Md. Kanon Ahmed | Software Engineer</title>
+<meta name="description" content="Md. Kanon Ahmed - MSc Software Engineering graduate from University of Malaya. Software developer based in Selangor, Malaysia.">
+<style>
+  :root{
+    --bg:#0f172a; --card:#1e293b; --text:#e2e8f0; --muted:#94a3b8;
+    --accent:#38bdf8; --line:#334155;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  nav{position:sticky;top:0;background:rgba(15,23,42,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
+  nav strong{font-size:1.05rem}
+  nav ul{display:flex;gap:18px;list-style:none;font-size:.95rem}
+  nav ul a{color:var(--muted)}
+  nav ul a:hover{color:var(--accent);text-decoration:none}
+  .hero{padding:72px 0 56px;display:flex;gap:40px;align-items:center;flex-wrap:wrap}
+  .hero img{width:200px;height:200px;border-radius:50%;object-fit:cover;object-position:center 20%;border:4px solid var(--accent)}
+  .hero h1{font-size:2.4rem;line-height:1.2}
+  .hero .role{color:var(--accent);font-size:1.15rem;margin:6px 0 14px}
+  .hero p{color:var(--muted);max-width:520px}
+  .btns{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{padding:10px 20px;border-radius:8px;font-weight:600;border:1px solid var(--accent)}
+  .btn.primary{background:var(--accent);color:#0f172a}
+  .btn:hover{text-decoration:none;opacity:.85}
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  h2{font-size:1.6rem;margin-bottom:24px}
+  h2::after{content:"";display:block;width:48px;height:3px;background:var(--accent);margin-top:8px;border-radius:2px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:4px}
+  .card .meta{color:var(--accent);font-size:.9rem}
+  .card p{color:var(--muted);font-size:.95rem;margin-top:6px}
+  .tags{display:flex;flex-wrap:wrap;gap:10px}
+  .tags span{background:var(--card);border:1px solid var(--line);padding:6px 14px;border-radius:999px;font-size:.92rem}
+  .timeline{border-left:2px solid var(--line);padding-left:22px}
+  .timeline .item{position:relative;margin-bottom:26px}
+  .timeline .item::before{content:"";position:absolute;left:-29px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--accent)}
+  .timeline h3{font-size:1.05rem}
+  .timeline .meta{color:var(--muted);font-size:.9rem}
+  .contact-list{list-style:none;display:grid;gap:10px}
+  footer{padding:28px 0;text-align:center;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+  @media(max-width:600px){
+    nav ul{gap:12px;font-size:.85rem}
+    .hero{padding-top:40px;text-align:center;justify-content:center}
+    .hero h1{font-size:1.9rem}
+    .btns{justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <strong>Kanon Ahmed</strong>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="wrap hero">
+  <img src="photo.jpg" alt="Md. Kanon Ahmed">
+  <div>
+    <h1>Md. Kanon Ahmed</h1>
+    <div class="role">Software Engineer &middot; MSc, University of Malaya</div>
+    <p>Software developer and network technology graduate based in Selangor, Malaysia. Focused on solving technology problems that have a direct impact on organizations.</p>
+    <div class="btns">
+      <a class="btn primary" href="#contact">Contact Me</a>
+      <a class="btn" href="#experience">My Experience</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About Me</h2>
+    <p>I completed my Master's degree in Software Engineering (Software Technology) from University of Malaya, ranked 59th in the world in the 2021 QS rankings. My research focuses on a Traffic Control System.</p>
+    <p style="margin-top:12px">I am dedicated, proactive and happy to take on bigger responsibilities and challenges. I work closely with teams to achieve project plans and resolve issues.</p>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <h2>Education</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>M.Sc. Software Engineering</h3>
+        <div class="meta">University of Malaya &middot; 2021</div>
+        <p>Software Technology. CGPA 3.40 / 4.00</p>
+      </div>
+      <div class="card">
+        <h3>B.Sc. (Hons) Computer Science</h3>
+        <div class="meta">Lincoln University College &middot; 2017</div>
+        <p>Network Technology &amp; Cyber Security. CGPA 3.66 / 4.00</p>
+      </div>
+      <div class="card">
+        <h3>H.S.C. (Science)</h3>
+        <div class="meta">Sristy College of Tangail &middot; 2011</div>
+        <p>GPA 5.00 / 5.00</p>
+      </div>
+      <div class="card">
+        <h3>S.S.C. (Science)</h3>
+        <div class="meta">H.M. Institution &middot; 2009</div>
+        <p>GPA 5.00 / 5.00</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <h2>Experience</h2>
+    <div class="timeline">
+      <div class="item">
+        <h3>Software Developer (Part-Time)</h3>
+        <div class="meta">JSOFT Solution Sdn Bhd</div>
+      </div>
+      <div class="item">
+        <h3>Manager</h3>
+        <div class="meta">Salsabil Kausar Sdn Bhd &middot; May 2020 &ndash; Present</div>
+      </div>
+      <div class="item">
+        <h3>Network System Administrator</h3>
+        <div class="meta">Rain Drop Maintenance Services Sdn Bhd &middot; Dec 2017 &ndash; Mar 2018</div>
+      </div>
+      <div class="item">
+        <h3>Server</h3>
+        <div class="meta">Tony Roma's Restaurant &middot; Feb 2015 &ndash; Jan 2016</div>
+      </div>
+      <div class="item">
+        <h3>Part-Timer</h3>
+        <div class="meta">Sunway Resort &amp; Spa Hotel &middot; Apr 2014 &ndash; Dec 2014</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <div class="tags">
+      <span>C++</span><span>HTML</span><span>CSS</span><span>JavaScript</span>
+      <span>Software Customization</span><span>Network Administration</span>
+      <span>Microsoft Word</span><span>Microsoft Excel</span><span>PowerPoint</span>
+      <span>Management</span><span>Leadership</span><span>Volunteering</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <ul class="contact-list">
+      <li>Email: <a href="mailto:ahmedkanon1994@gmail.com">ahmedkanon1994@gmail.com</a></li>
+      <li>Phone: <a href="tel:+60173637523">+60 17-363 7523</a></li>
+      <li>Location: Puncak Alam, Selangor, Malaysia</li>
+    </ul>
+  </div>
+</section>
+
+<footer>&copy; 2026 Md. Kanon Ahmed. All rights reserved.</footer>
+
+</body>
+</html>
