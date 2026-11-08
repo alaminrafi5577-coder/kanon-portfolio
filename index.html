@@ -23,6 +23,7 @@
 </script>
 <style>
   :root{
+    --photo:url(photo.jpg);
     --bg:#0b1020; --bg2:#10172e; --card:rgba(255,255,255,.05); --card-b:rgba(255,255,255,.09);
     --text:#e8ecf8; --muted:#9aa6c4; --a1:#38bdf8; --a2:#a78bfa; --a3:#f472b6; --ok:#34d399;
     --grad:linear-gradient(135deg,var(--a1),var(--a2) 55%,var(--a3));
@@ -167,7 +168,7 @@
   .people h3{font-size:1.3rem;margin-bottom:20px}
   .person{text-align:center}
   .avatar{width:64px;height:64px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-family:"Space Grotesk";font-weight:700;font-size:1.3rem;margin:0 auto 14px}
-  .person.me .avatar{background:url(photo.jpg) center 20%/cover;box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--a1)}
+  .person.me .avatar{background:var(--photo) center 20%/cover;box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--a1)}
   .person h4{font-size:1.02rem}
   .person .role{color:var(--a1);font-size:.86rem;font-weight:500}
   .person .you{display:inline-block;margin-top:8px;font-size:.72rem;font-weight:600;background:rgba(56,189,248,.15);color:var(--a1);padding:3px 10px;border-radius:999px}
@@ -259,6 +260,9 @@
   .foot p{color:var(--muted);font-size:.9rem;max-width:340px}
   .copy{text-align:center;color:var(--muted);font-size:.82rem;margin-top:34px;padding-top:22px;border-top:1px solid var(--card-b)}
 
+  .admin-entry{text-align:center;padding:0 0 20px;font-size:.76rem}
+  .admin-entry a{color:var(--muted);opacity:.45;transition:opacity .2s}
+  .admin-entry a:hover{opacity:1}
   #top{position:fixed;right:20px;bottom:22px;width:46px;height:46px;border-radius:14px;border:0;background:var(--grad);color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:0 10px 30px rgba(124,92,255,.45);opacity:0;pointer-events:none;transform:translateY(12px);transition:.3s;z-index:60}
   #top.show{opacity:1;pointer-events:auto;transform:none}
 
@@ -326,7 +330,7 @@
 </nav>
 
 <!-- HERO -->
-<header class="hero" id="home">
+<header class="hero" id="home" data-region="home">
   <div class="hero-bg"></div>
   <a class="scroll" href="#about" aria-label="Scroll down"></a>
   <div class="wrap">
@@ -357,7 +361,7 @@
       </div>
     </div>
     <div class="photo-wrap reveal d2">
-      <img src="photo.jpg" alt="Portrait of Md. Kanon Ahmed">
+      <img data-photo src="photo.jpg" alt="Portrait of Md. Kanon Ahmed">
       <div class="chip c1">🏗️ Managing Director, A&amp;R</div>
       <div class="chip c2">🎓 MSc · University of Malaya</div>
       <div class="chip c3">🌏 Kuala Lumpur ⇄ Dhaka</div>
@@ -377,7 +381,7 @@
 </div>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" data-region="about">
   <div class="wrap">
     <div class="eyebrow reveal">About me</div>
     <h2 class="reveal">Engineer, entrepreneur &amp; <span class="grad-text">team builder</span></h2>
@@ -398,7 +402,7 @@
 </section>
 
 <!-- A&R ENTREPRENEUR RESOURCES -->
-<section id="ar">
+<section id="ar" data-region="ar">
   <div class="wrap">
     <div class="eyebrow reveal">My company · Malaysia</div>
     <h2 class="reveal">A&amp;R Entrepreneur <span class="grad-text">Resources</span></h2>
@@ -458,7 +462,7 @@
 </section>
 
 <!-- YEEPIX -->
-<section id="yeepix">
+<section id="yeepix" data-region="yeepix">
   <div class="wrap">
     <div class="eyebrow reveal">My company</div>
     <h2 class="reveal">Yeepix <span class="grad-text">Limited</span></h2>
@@ -499,7 +503,7 @@
 </section>
 
 <!-- SERVICES -->
-<section id="services">
+<section id="services" data-region="services">
   <div class="wrap">
     <div class="eyebrow reveal">What Yeepix does</div>
     <h2 class="reveal">Five services, <span class="grad-text">one journey</span></h2>
@@ -548,7 +552,7 @@
 </section>
 
 <!-- DHAKA OFFICE -->
-<section id="office">
+<section id="office" data-region="office">
   <div class="wrap">
     <div class="eyebrow reveal">Visit us</div>
     <h2 class="reveal">Our <span class="grad-text">offices</span></h2>
@@ -595,7 +599,7 @@
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
+<section id="experience" data-region="experience">
   <div class="wrap">
     <div class="eyebrow reveal">Experience</div>
     <h2 class="reveal">Where I have <span class="grad-text">worked</span></h2>
@@ -612,7 +616,7 @@
 </section>
 
 <!-- EDUCATION -->
-<section id="education">
+<section id="education" data-region="education">
   <div class="wrap">
     <div class="eyebrow reveal">Education</div>
     <h2 class="reveal">My academic <span class="grad-text">journey</span></h2>
@@ -627,7 +631,7 @@
 </section>
 
 <!-- SKILLS -->
-<section id="skills">
+<section id="skills" data-region="skills">
   <div class="wrap">
     <div class="eyebrow reveal">Skills</div>
     <h2 class="reveal">What I <span class="grad-text">bring</span></h2>
@@ -643,7 +647,7 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
+<section id="contact" data-region="contact">
   <div class="wrap">
     <div class="eyebrow reveal">Contact</div>
     <h2 class="reveal">Let's <span class="grad-text">work together</span></h2>
@@ -678,7 +682,7 @@
   </div>
 </section>
 
-<footer>
+<footer data-region="footer">
   <div class="wrap">
     <div class="foot">
       <div>
@@ -697,6 +701,8 @@
     <div class="copy">&copy; 2026 Md. Kanon Ahmed. All rights reserved. &middot; Yeepix Limited, RJSC Reg. No. 212218</div>
   </div>
 </footer>
+
+<div class="admin-entry"><a id="admin-link" href="#admin">🔒 Admin</a></div>
 
 <button id="top" aria-label="Back to top">↑</button>
 
@@ -727,10 +733,12 @@
   tbtn.onclick=()=>setTheme(root.dataset.theme==='light'?'dark':'light');
 
   // typing effect
-  const words=['Vice Chairman at Yeepix Limited','Managing Director at A&R Entrepreneur','System Administrator','Software Engineer','MSc, University of Malaya','Entrepreneur & Team Builder'];
-  const el=$('#type'); let w=0,c=0,del=false;
+  let words=['Vice Chairman at Yeepix Limited','Managing Director at A&R Entrepreneur','System Administrator','Software Engineer','MSc, University of Malaya','Entrepreneur & Team Builder'];
+  let w=0,c=0,del=false;
   (function tick(){
-    const word=words[w];
+    const el=document.getElementById('type');
+    if(!el||window.__siteEditing){if(el&&window.__siteEditing)el.textContent=words[0]||'';return setTimeout(tick,400)}
+    const word=words[w%words.length]||'';
     el.textContent=word.slice(0,c);
     if(!del&&c===word.length){del=true;return setTimeout(tick,1500)}
     if(del&&c===0){del=false;w=(w+1)%words.length}
@@ -750,16 +758,18 @@
     e.target.querySelectorAll('[data-count]').forEach(n=>{if(!reduce)countUp(n)});
     io.unobserve(e.target);
   }),{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(n=>io.observe(n));
+  function observeReveal(root){(root||document).querySelectorAll('.reveal:not(.show)').forEach(n=>io.observe(n))}
+  observeReveal();
 
-  // office tabs (Dhaka / Malaysia)
-  const tabs=[...document.querySelectorAll('.otab')], mapEl=$('#office-map'), dirBtn=$('#dir-btn');
-  tabs.forEach(t=>t.addEventListener('click',()=>{
-    tabs.forEach(x=>{const on=x===t;x.classList.toggle('active',on);x.setAttribute('aria-selected',on);document.getElementById(x.dataset.panel).hidden=!on});
-    mapEl.src='https://maps.google.com/maps?q='+t.dataset.map+'&z=15&output=embed';
-    mapEl.title=t.dataset.title;
-    dirBtn.href='https://www.google.com/maps/search/?api=1&query='+t.dataset.dir;
-  }));
+  // office tabs (Dhaka / Malaysia), delegated so they survive saved-content swaps
+  function activateOfficeTab(t){
+    const box=t.closest('.office-info'); if(!box)return;
+    box.querySelectorAll('.otab').forEach(x=>{const on=x===t;x.classList.toggle('active',on);x.setAttribute('aria-selected',on);const p=document.getElementById(x.dataset.panel);if(p)p.hidden=!on});
+    const mapEl=document.getElementById('office-map'), dirBtn=document.getElementById('dir-btn');
+    if(mapEl){mapEl.src='https://maps.google.com/maps?q='+t.dataset.map+'&z=15&output=embed';mapEl.title=t.dataset.title||''}
+    if(dirBtn)dirBtn.href='https://www.google.com/maps/search/?api=1&query='+t.dataset.dir;
+  }
+  document.addEventListener('click',e=>{const t=e.target.closest('.otab');if(t&&!window.__siteEditing)activateOfficeTab(t)});
 
   // companies dropdown
   const dd=$('.dd'), ddBtn=$('.dd-btn');
@@ -774,6 +784,11 @@
     if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));ddBtn.classList.toggle('active',!!document.querySelector('.dd-menu a.active'))}
   }),{rootMargin:'-45% 0px -50% 0px'});
   secs.forEach(s=>s&&so.observe(s));
+
+  // hooks used by cms.js / admin.js
+  window.SITE={observeReveal,activateOfficeTab,setWords:a=>{if(Array.isArray(a)&&a.length){words=a;w=0;c=0;del=false}},getWords:()=>words.slice()};
 </script>
+<script src="site-config.js"></script>
+<script src="cms.js"></script>
 </body>
 </html>
