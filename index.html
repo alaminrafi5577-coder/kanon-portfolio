@@ -206,6 +206,12 @@
   .row b{display:block;font-size:.8rem;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.08em}
   .row a:hover{color:var(--a1)}
   .row span.v{font-weight:500}
+  .otabs{display:flex;gap:8px;flex-wrap:wrap}
+  .otab{font-family:inherit;font-size:.82rem;font-weight:600;color:var(--muted);background:var(--bg2);border:1px solid var(--card-b);padding:9px 14px;border-radius:12px;cursor:pointer;transition:.2s}
+  .otab:hover{color:var(--text)}
+  .otab.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 8px 22px rgba(124,92,255,.35)}
+  .opanel{display:flex;flex-direction:column;gap:16px}
+  .opanel[hidden]{display:none}
   .map{border-radius:20px;overflow:hidden;border:1px solid var(--card-b);min-height:380px;box-shadow:var(--shadow);position:relative;background:var(--bg2)}
   .map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   :root:not([data-theme="light"]) .map iframe{filter:invert(.9) hue-rotate(180deg) saturate(.8)}
@@ -306,7 +312,7 @@
           <div class="hd">Yeepix Limited · Dhaka</div>
           <a class="lk" href="#yeepix">Yeepix Limited<small>Vice Chairman · education, visa &amp; careers</small></a>
           <a class="lk" href="#services">Yeepix Services<small>5 services, 8-step process</small></a>
-          <a class="lk" href="#office">Dhaka Office<small>Banasree, Rampura · map &amp; contact</small></a>
+          <a class="lk" href="#office">Offices<small>Head office Dhaka · regional office Malaysia</small></a>
         </div>
       </li>
       <li><a class="lk" href="#experience">Experience</a></li>
@@ -333,7 +339,7 @@
       <div class="cta-row reveal d3">
       <div class="btns">
         <a class="btn primary" href="#yeepix">Explore Yeepix &rarr;</a>
-        <a class="btn ghost" href="#office">📍 Dhaka Office</a>
+        <a class="btn ghost" href="#office">📍 Our Offices</a>
         <a class="btn ghost" href="#contact">Contact</a>
       </div>
       <div class="socials">
@@ -545,22 +551,33 @@
 <section id="office">
   <div class="wrap">
     <div class="eyebrow reveal">Visit us</div>
-    <h2 class="reveal">Our <span class="grad-text">Dhaka office</span></h2>
-    <p class="sub reveal">Walk in for a free first consultation. Students, parents, workers and partners are all welcome.</p>
+    <h2 class="reveal">Our <span class="grad-text">offices</span></h2>
+    <p class="sub reveal">Yeepix has a head office in Dhaka and a regional office in Malaysia. Walk in for a free first consultation. Students, parents, workers and partners are all welcome.</p>
 
     <div class="office">
       <div class="glass office-info reveal">
-        <div class="row"><div class="i">📍</div><div><b>Registered office</b><span class="v">House 40, Level-2, Unit-B, Road-7, Block-C, Banasree, Rampura, Dhaka-1219, Bangladesh</span></div></div>
-        <div class="row"><div class="i">📞</div><div><b>Phone</b><span class="v"><a href="tel:+8801616810109">+880 1616-810109</a></span></div></div>
-        <div class="row"><div class="i">✉️</div><div><b>Email</b><span class="v"><a href="mailto:ahmed.kanon@yeepix.global">ahmed.kanon@yeepix.global</a></span></div></div>
-        <div class="row"><div class="i">🌐</div><div><b>Website</b><span class="v"><a href="https://www.yeepix.global" target="_blank" rel="noopener">www.yeepix.global</a></span></div></div>
+        <div class="otabs" role="tablist" aria-label="Choose an office">
+          <button class="otab active" type="button" role="tab" aria-selected="true" data-panel="op-dhaka" data-map="Banasree%20Block%20C%20Rampura%20Dhaka%201219" data-dir="Banasree+Rampura+Dhaka+1219" data-title="Map of Yeepix Limited head office in Banasree, Rampura, Dhaka">🏢 Head Office · Dhaka</button>
+          <button class="otab" type="button" role="tab" aria-selected="false" data-panel="op-my" data-map="Leisure%20Commerce%20Square%20Jalan%20PJS%208%2F9%20Petaling%20Jaya" data-dir="Leisure+Commerce+Square+Jalan+PJS+8%2F9+Petaling+Jaya" data-title="Map of Yeepix Limited regional office in Petaling Jaya, Malaysia">🌏 Regional Office · Malaysia</button>
+        </div>
+        <div class="opanel" id="op-dhaka">
+          <div class="row"><div class="i">📍</div><div><b>Head office (registered)</b><span class="v">House 40, Level-2, Unit-B, Road-7, Block-C, Banasree, Rampura, Dhaka-1219, Bangladesh</span></div></div>
+          <div class="row"><div class="i">📞</div><div><b>Phone</b><span class="v"><a href="tel:+8801616810109">+880 1616-810109</a></span></div></div>
+          <div class="row"><div class="i">✉️</div><div><b>Email</b><span class="v"><a href="mailto:ahmed.kanon@yeepix.global">ahmed.kanon@yeepix.global</a></span></div></div>
+          <div class="row"><div class="i">🌐</div><div><b>Website</b><span class="v"><a href="https://www.yeepix.global" target="_blank" rel="noopener">www.yeepix.global</a></span></div></div>
+        </div>
+        <div class="opanel" id="op-my" hidden>
+          <div class="row"><div class="i">📍</div><div><b>Regional office · Malaysia</b><span class="v">No. 740, Level 7, Block A2, Leisure Commerce Square, No. 9, Jalan PJS 8/9, 46150 Petaling Jaya, Selangor, Malaysia</span></div></div>
+          <div class="row"><div class="i">✉️</div><div><b>Email</b><span class="v"><a href="mailto:ahmed.kanon@yeepix.global">ahmed.kanon@yeepix.global</a></span></div></div>
+          <div class="row"><div class="i">🌐</div><div><b>Website</b><span class="v"><a href="https://www.yeepix.global" target="_blank" rel="noopener">www.yeepix.global</a></span></div></div>
+        </div>
         <div class="btns" style="margin-top:auto">
-          <a class="btn primary sm" href="https://www.google.com/maps/search/?api=1&query=Banasree+Rampura+Dhaka+1219" target="_blank" rel="noopener">Get directions ↗</a>
+          <a class="btn primary sm" id="dir-btn" href="https://www.google.com/maps/search/?api=1&query=Banasree+Rampura+Dhaka+1219" target="_blank" rel="noopener">Get directions ↗</a>
           <a class="btn ghost sm" href="mailto:ahmed.kanon@yeepix.global">Book free consultation</a>
         </div>
       </div>
       <div class="map reveal d1">
-        <iframe title="Map of Yeepix Limited office in Banasree, Rampura, Dhaka" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Banasree%20Block%20C%20Rampura%20Dhaka%201219&z=15&output=embed"></iframe>
+        <iframe id="office-map" title="Map of Yeepix Limited head office in Banasree, Rampura, Dhaka" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Banasree%20Block%20C%20Rampura%20Dhaka%201219&z=15&output=embed"></iframe>
       </div>
     </div>
 
@@ -653,7 +670,8 @@
         <p>Education · Visa · Careers · Training</p>
         <div class="row"><div class="i">✉️</div><div><b>Email</b><span class="v"><a href="mailto:ahmed.kanon@yeepix.global">ahmed.kanon@yeepix.global</a></span></div></div>
         <div class="row"><div class="i">📞</div><div><b>Phone</b><span class="v"><a href="tel:+8801616810109">+880 1616-810109</a></span></div></div>
-        <div class="row"><div class="i">📍</div><div><b>Dhaka office</b><span class="v">House 40, Level-2, Unit-B, Road-7, Block-C, Banasree, Rampura, Dhaka-1219</span></div></div>
+        <div class="row"><div class="i">📍</div><div><b>Head office · Dhaka</b><span class="v">House 40, Level-2, Unit-B, Road-7, Block-C, Banasree, Rampura, Dhaka-1219</span></div></div>
+        <div class="row"><div class="i">🌏</div><div><b>Regional office · Malaysia</b><span class="v">No. 740, Level 7, Block A2, Leisure Commerce Square, No. 9, Jalan PJS 8/9, 46150 Petaling Jaya, Selangor</span></div></div>
         <div class="btns" style="margin-top:20px"><a class="btn primary sm" href="https://www.yeepix.global" target="_blank" rel="noopener">Visit website ↗</a><a class="btn ghost sm" href="#office">See map</a></div>
       </div>
     </div>
@@ -669,7 +687,7 @@
       </div>
       <div>
         <h4>Explore</h4>
-        <ul><li><a href="#about">About</a></li><li><a href="#ar">A&amp;R Entrepreneur</a></li><li><a href="#yeepix">Yeepix</a></li><li><a href="#services">Services</a></li><li><a href="#office">Dhaka Office</a></li></ul>
+        <ul><li><a href="#about">About</a></li><li><a href="#ar">A&amp;R Entrepreneur</a></li><li><a href="#yeepix">Yeepix</a></li><li><a href="#services">Services</a></li><li><a href="#office">Offices</a></li></ul>
       </div>
       <div>
         <h4>Reach us</h4>
@@ -733,6 +751,15 @@
     io.unobserve(e.target);
   }),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(n=>io.observe(n));
+
+  // office tabs (Dhaka / Malaysia)
+  const tabs=[...document.querySelectorAll('.otab')], mapEl=$('#office-map'), dirBtn=$('#dir-btn');
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    tabs.forEach(x=>{const on=x===t;x.classList.toggle('active',on);x.setAttribute('aria-selected',on);document.getElementById(x.dataset.panel).hidden=!on});
+    mapEl.src='https://maps.google.com/maps?q='+t.dataset.map+'&z=15&output=embed';
+    mapEl.title=t.dataset.title;
+    dirBtn.href='https://www.google.com/maps/search/?api=1&query='+t.dataset.dir;
+  }));
 
   // companies dropdown
   const dd=$('.dd'), ddBtn=$('.dd-btn');
