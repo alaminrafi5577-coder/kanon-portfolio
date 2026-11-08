@@ -63,6 +63,18 @@
   nav ul a.lk.active{color:var(--text);background:color-mix(in srgb,var(--a2) 18%,transparent)}
   nav ul li:nth-last-child(2){margin-left:8px}
   nav ul li:last-child{margin-left:4px}
+  .dd{position:relative}
+  .dd-btn{background:none;border:0;font-family:inherit;cursor:pointer;color:var(--muted);font-size:.9rem;font-weight:500;padding:8px 13px;border-radius:12px;display:flex;align-items:center;gap:6px;transition:color .2s,background .2s}
+  .dd-btn::after{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+  .dd:hover .dd-btn,.dd.open .dd-btn{color:var(--text);background:var(--card)}
+  .dd:hover .dd-btn::after,.dd.open .dd-btn::after{transform:rotate(-135deg) translateY(-2px)}
+  .dd-btn.active{color:var(--text);background:color-mix(in srgb,var(--a2) 18%,transparent)}
+  .dd-menu{position:absolute;top:calc(100% + 12px);left:-8px;min-width:270px;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(16px);border:1px solid var(--card-b);border-radius:18px;padding:8px;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s}
+  .dd-menu::before{content:"";position:absolute;top:-14px;left:0;right:0;height:14px}
+  .dd:hover .dd-menu,.dd:focus-within .dd-menu,.dd.open .dd-menu{opacity:1;visibility:visible;transform:none}
+  .dd-menu a.lk{display:flex;flex-direction:column;gap:0;padding:10px 14px;line-height:1.35}
+  .dd-menu a.lk small{font-size:.74rem;color:var(--muted);font-weight:400}
+  .dd-menu .hd{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--a2);font-weight:700;padding:8px 14px 4px}
   .theme-btn{background:var(--card);border:1px solid var(--card-b);color:var(--text);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem}
   .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.6rem;cursor:pointer}
 
@@ -89,7 +101,7 @@
   .hero p.lead{color:var(--muted);font-size:1.06rem;max-width:560px}
   .cta-row{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:30px}
   .socials{display:flex;gap:10px}
-  .now{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px;max-width:640px}
+  .now{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:34px;max-width:640px}
   .now-card{display:flex;gap:11px;align-items:center;padding:12px 14px;background:var(--card);border:1px solid var(--card-b);border-radius:16px;backdrop-filter:blur(10px);text-align:left;transition:transform .25s,border-color .25s}
   .now-card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--a2) 55%,transparent)}
   .now-card .ic{font-size:1.35rem}
@@ -225,7 +237,7 @@
   .skill-group h3 i{font-style:normal;font-size:1.3rem}
 
   /* contact */
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
   .cbox{padding:34px;position:relative;overflow:hidden}
   .cbox.main::before{content:"";position:absolute;inset:0;background:var(--grad);opacity:.1;z-index:-1}
   .cbox h3{font-size:1.3rem;margin-bottom:6px}
@@ -253,6 +265,10 @@
     nav ul li{padding:6px 0;border-bottom:1px solid var(--card-b);margin-left:0!important}
     nav ul li:last-child,nav ul li:nth-last-child(2){border-bottom:0}
     nav ul a.btn{justify-content:center}
+    .dd-btn{width:100%;padding:8px 13px;pointer-events:none;color:var(--text);font-weight:600}
+    .dd-btn::after{display:none}
+    .dd-menu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:0;background:none;backdrop-filter:none;padding:0 0 4px 12px;min-width:0}
+    .dd-menu::before{display:none}
     .menu-btn{display:block}
   }
   @media(max-width:860px){
@@ -281,9 +297,17 @@
     <a href="#home" class="logo" aria-label="Md. Kanon Ahmed, home"><span class="mono">K</span><span>Kanon Ahmed<small>Vice Chairman · Yeepix</small></span></a>
     <ul id="menu">
       <li><a class="lk" href="#about">About</a></li>
-      <li><a class="lk" href="#yeepix">Yeepix</a></li>
-      <li><a class="lk" href="#services">Services</a></li>
-      <li><a class="lk" href="#office">Dhaka Office</a></li>
+      <li class="dd">
+        <button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false">Companies</button>
+        <div class="dd-menu">
+          <div class="hd">Yeepix Limited · Dhaka</div>
+          <a class="lk" href="#yeepix">Yeepix Limited<small>Vice Chairman · education, visa &amp; careers</small></a>
+          <a class="lk" href="#services">Yeepix Services<small>5 services, 8-step process</small></a>
+          <a class="lk" href="#office">Dhaka Office<small>Banasree, Rampura · map &amp; contact</small></a>
+          <div class="hd">Malaysia</div>
+          <a class="lk" href="#ar">A&amp;R Entrepreneur Resources<small>Managing Director · Petaling Jaya</small></a>
+        </div>
+      </li>
       <li><a class="lk" href="#experience">Experience</a></li>
       <li><a class="lk" href="#education">Education</a></li>
       <li><a class="lk" href="#skills">Skills</a></li>
@@ -304,7 +328,7 @@
       <div class="hello reveal d1">Hello, I'm</div>
       <h1 class="reveal d1"><span class="grad-text">Md. Kanon</span> Ahmed</h1>
       <div class="typing reveal d2"><span id="type"></span><span class="cursor"></span></div>
-      <p class="lead reveal d2">System administrator and software engineer (MSc, University of Malaya), and co-leader of <strong>Yeepix Limited</strong>, a Dhaka based consultancy helping students and professionals with education, visas, overseas careers and skills training.</p>
+      <p class="lead reveal d2">System administrator and software engineer (MSc, University of Malaya), Managing Director of <strong>A&amp;R Entrepreneur Resources</strong> and co-leader of <strong>Yeepix Limited</strong>, a Dhaka based consultancy helping students and professionals with education, visas, overseas careers and skills training.</p>
       <div class="cta-row reveal d3">
       <div class="btns">
         <a class="btn primary" href="#yeepix">Explore Yeepix &rarr;</a>
@@ -320,6 +344,7 @@
       </div>
       <div class="now reveal d3">
         <div class="now-card"><span class="ic">🏢</span><div><b>Vice Chairman</b><small>Yeepix Limited · Dhaka</small></div></div>
+        <div class="now-card"><span class="ic">🏗️</span><div><b>Managing Director</b><small>A&amp;R Entrepreneur · Petaling Jaya</small></div></div>
         <div class="now-card"><span class="ic">🖥️</span><div><b>System Administrator</b><small>UnisonTech · Kuala Lumpur</small></div></div>
         <div class="now-card"><span class="ic">🎓</span><div><b>MSc Software Eng.</b><small>University of Malaya</small></div></div>
       </div>
@@ -352,7 +377,7 @@
     <div class="about">
       <div class="reveal">
         <p>I hold a Master's degree in Software Engineering (Software Technology) from University of Malaya, ranked 59th in the world in the 2021 QS ranking. My research focuses on a Traffic Control System.</p>
-        <p>Today I serve as <strong>Vice Chairman of Yeepix Limited</strong>, a company we founded in 2026 to bridge Bangladeshi students, professionals and skilled workers with world-class international opportunities, while working in Malaysia as a <strong>System Administrator at UnisonTech Consulting Sdn. Bhd.</strong> in Kuala Lumpur and as a software developer.</p>
+        <p>Today I serve as <strong>Managing Director of A&amp;R Entrepreneur Resources Sdn. Bhd.</strong> in Malaysia and <strong>Vice Chairman of Yeepix Limited</strong>, a company we founded in 2026 to bridge Bangladeshi students, professionals and skilled workers with world-class international opportunities, while working in Malaysia as a <strong>System Administrator at UnisonTech Consulting Sdn. Bhd.</strong> in Kuala Lumpur and as a software developer.</p>
         <p>I am dedicated, proactive and happy to take on bigger responsibilities. I work closely with teams to deliver plans, resolve issues and solve technology problems that have a direct impact on organizations. Outside work I enjoy football, cricket and badminton, and I take part in volunteer activities.</p>
       </div>
       <div class="stats">
@@ -490,6 +515,66 @@
   </div>
 </section>
 
+<!-- A&R ENTREPRENEUR RESOURCES -->
+<section id="ar">
+  <div class="wrap">
+    <div class="eyebrow reveal">My company · Malaysia</div>
+    <h2 class="reveal">A&amp;R Entrepreneur <span class="grad-text">Resources</span></h2>
+    <p class="sub reveal">“Nothing is Impossible, Your Challenge Is Our Progress.” A Malaysian private limited company where I serve as Managing Director.</p>
+
+    <div class="yeepix-hero">
+      <div class="glass yx-main reveal">
+        <div class="yx-logo grad-text">A&amp;R</div>
+        <div class="yx-tag">Entrepreneur Resources Sdn. Bhd.</div>
+        <p>A&amp;R Entrepreneur Resources Sdn. Bhd. is a private limited company registered with the Companies Commission of Malaysia (SSM) in May 2023 and based in Petaling Jaya, Selangor.</p>
+        <p>I lead the company as <strong>Managing Director</strong>. Its registered activities cover construction and site works, cleaning and housekeeping services, and renovation and maintenance.</p>
+        <div class="btns">
+          <a class="btn primary sm" href="mailto:areresources23@gmail.com">✉ areresources23@gmail.com</a>
+          <a class="btn ghost sm" href="tel:+60378650728">📞 +603-7865 0728</a>
+        </div>
+      </div>
+      <div class="vm">
+        <div class="glass reveal d1"><h3>My role</h3><p>Managing Director of A&amp;R Entrepreneur Resources Sdn. Bhd., leading the company in Malaysia.</p></div>
+        <div class="glass reveal d2"><h3>Motto</h3><p>Nothing is Impossible. Your Challenge Is Our Progress.</p></div>
+      </div>
+    </div>
+
+    <div class="people">
+      <h3 class="reveal">Registered business activities</h3>
+      <div class="grid">
+        <div class="glass svc reveal"><div class="ico">🏗️</div><h3>Construction &amp; Site Works</h3><p>Construction of all types of buildings, foundations and pile driving, concrete works and other site preparation activities.</p></div>
+        <div class="glass svc reveal d1"><div class="ico">🧹</div><h3>Cleaning, Housekeeping &amp; Hospitality</h3><p>Services for all types of buildings, malls, residential buildings, factories and firms.</p></div>
+        <div class="glass svc reveal d2"><div class="ico">🔧</div><h3>Renovation &amp; Maintenance</h3><p>Renovation, beautification, grass cutting and maintenance works.</p></div>
+      </div>
+    </div>
+
+    <div class="office" style="margin-top:34px">
+      <div class="glass office-info reveal">
+        <div class="row"><div class="i">📍</div><div><b>Business address</b><span class="v">No. 740, Level 7, Block A2, Leisure Commerce Square, No. 9, Jalan PJS 8/9, 46150 Petaling Jaya, Selangor, Malaysia</span></div></div>
+        <div class="row"><div class="i">📞</div><div><b>Phone</b><span class="v"><a href="tel:+60378650728">+603-7865 0728</a></span></div></div>
+        <div class="row"><div class="i">✉️</div><div><b>Email</b><span class="v"><a href="mailto:areresources23@gmail.com">areresources23@gmail.com</a></span></div></div>
+        <div class="btns" style="margin-top:auto">
+          <a class="btn primary sm" href="https://www.google.com/maps/search/?api=1&query=Leisure+Commerce+Square+Jalan+PJS+8%2F9+Petaling+Jaya" target="_blank" rel="noopener">Get directions ↗</a>
+        </div>
+      </div>
+      <div class="map reveal d1">
+        <iframe title="Map of A&amp;R Entrepreneur Resources office in Petaling Jaya" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Leisure%20Commerce%20Square%20Jalan%20PJS%208%2F9%20Petaling%20Jaya&z=15&output=embed"></iframe>
+      </div>
+    </div>
+
+    <div class="glass reg reveal">
+      <h3>✅ Registered with SSM</h3>
+      <dl>
+        <div><dt>Legal name</dt><dd>A&amp;R Entrepreneur Resources Sdn. Bhd.</dd></div>
+        <div><dt>Registration no.</dt><dd>202301016981 (1510903-U)</dd></div>
+        <div><dt>Incorporated</dt><dd>8 May 2023</dd></div>
+        <div><dt>Company type</dt><dd>Private limited company (limited by shares)</dd></div>
+        <div><dt>Status</dt><dd><span class="verified">● Existing</span></dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="wrap">
@@ -498,6 +583,7 @@
     <p class="sub reveal">From network administration to management, software development, system administration and building my own company.</p>
     <div class="timeline">
       <div class="t-item now glass reveal"><h3>Vice Chairman <span class="pill">Current</span></h3><div class="co">Yeepix Limited · Dhaka, Bangladesh</div><div class="date">July 2026 &ndash; Present</div><div class="desc">Co-leading a young international education, visa, overseas employment and skills training company from its foundation.</div></div>
+      <div class="t-item now glass reveal"><h3>Managing Director <span class="pill">Current</span></h3><div class="co">A&amp;R Entrepreneur Resources Sdn. Bhd. · Petaling Jaya, Malaysia</div><div class="date">2023 &ndash; Present</div><div class="desc">Leading a Malaysian private limited company engaged in construction, building services, renovation and maintenance works.</div></div>
       <div class="t-item now glass reveal"><h3>System Administrator <span class="pill">Current</span></h3><div class="co">UnisonTech Consulting Sdn. Bhd. · Kuala Lumpur, Malaysia</div><div class="date">24-month contract · 2026 &ndash; Present</div><div class="desc">Managing IT systems for client organisations under an Employment Pass approved by the Malaysia Digital Economy Corporation (MDEC) as a Foreign Knowledge Worker in the ICT sector.</div></div>
       <div class="t-item now glass reveal"><h3>Software Developer <span class="pill">Current · Part-Time</span></h3><div class="co">JSOFT Solution Sdn Bhd</div></div>
       <div class="t-item now glass reveal"><h3>Manager <span class="pill">Current</span></h3><div class="co">Salsabil Kausar Sdn Bhd</div><div class="date">May 2020 &ndash; Present</div></div>
@@ -560,6 +646,14 @@
         <div class="row"><div class="i">📍</div><div><b>Dhaka office</b><span class="v">House 40, Level-2, Unit-B, Road-7, Block-C, Banasree, Rampura, Dhaka-1219</span></div></div>
         <div class="btns" style="margin-top:20px"><a class="btn primary sm" href="https://www.yeepix.global" target="_blank" rel="noopener">Visit website ↗</a><a class="btn ghost sm" href="#office">See map</a></div>
       </div>
+      <div class="glass cbox reveal d2">
+        <h3>A&amp;R Entrepreneur Resources</h3>
+        <p>Managing Director · Petaling Jaya, Malaysia</p>
+        <div class="row"><div class="i">✉️</div><div><b>Email</b><span class="v"><a href="mailto:areresources23@gmail.com">areresources23@gmail.com</a></span></div></div>
+        <div class="row"><div class="i">📞</div><div><b>Phone</b><span class="v"><a href="tel:+60378650728">+603-7865 0728</a></span></div></div>
+        <div class="row"><div class="i">📍</div><div><b>Address</b><span class="v">No. 740, Level 7, Block A2, Leisure Commerce Square, No. 9, Jalan PJS 8/9, 46150 Petaling Jaya, Selangor</span></div></div>
+        <div class="btns" style="margin-top:20px"><a class="btn primary sm" href="mailto:areresources23@gmail.com">✉ Email</a><a class="btn ghost sm" href="#ar">See company</a></div>
+      </div>
     </div>
   </div>
 </section>
@@ -573,7 +667,7 @@
       </div>
       <div>
         <h4>Explore</h4>
-        <ul><li><a href="#about">About</a></li><li><a href="#yeepix">Yeepix</a></li><li><a href="#services">Services</a></li><li><a href="#office">Dhaka Office</a></li></ul>
+        <ul><li><a href="#about">About</a></li><li><a href="#yeepix">Yeepix</a></li><li><a href="#services">Services</a></li><li><a href="#office">Dhaka Office</a></li><li><a href="#ar">A&amp;R Entrepreneur</a></li></ul>
       </div>
       <div>
         <h4>Reach us</h4>
@@ -613,7 +707,7 @@
   tbtn.onclick=()=>setTheme(root.dataset.theme==='light'?'dark':'light');
 
   // typing effect
-  const words=['Vice Chairman at Yeepix Limited','System Administrator','Software Engineer','MSc, University of Malaya','Entrepreneur & Team Builder'];
+  const words=['Vice Chairman at Yeepix Limited','Managing Director at A&R Entrepreneur','System Administrator','Software Engineer','MSc, University of Malaya','Entrepreneur & Team Builder'];
   const el=$('#type'); let w=0,c=0,del=false;
   (function tick(){
     const word=words[w];
@@ -638,11 +732,17 @@
   }),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(n=>io.observe(n));
 
+  // companies dropdown
+  const dd=$('.dd'), ddBtn=$('.dd-btn');
+  ddBtn.onclick=e=>{e.stopPropagation();const o=dd.classList.toggle('open');ddBtn.setAttribute('aria-expanded',o)};
+  document.addEventListener('click',e=>{if(!dd.contains(e.target)){dd.classList.remove('open');ddBtn.setAttribute('aria-expanded','false')}});
+  dd.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{dd.classList.remove('open');ddBtn.setAttribute('aria-expanded','false')}));
+
   // active nav link
   const links=[...document.querySelectorAll('nav a.lk')];
   const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
   const so=new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}
+    if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));ddBtn.classList.toggle('active',!!document.querySelector('.dd-menu a.active'))}
   }),{rootMargin:'-45% 0px -50% 0px'});
   secs.forEach(s=>s&&so.observe(s));
 </script>
