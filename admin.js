@@ -1,12 +1,11 @@
-/* Admin tools: Google sign-in, in-page editing, save to Firestore.
+/* Admin tools: email + password sign-in, in-page editing, save to Supabase.
    Loaded on demand by cms.js, so normal visitors never download it.
-   Real protection is in firestore.rules: only the listed admin emails can write. */
+   Real protection is the row-level-security policy in supabase-setup.sql: only the admin email can write. */
 const CMS = window.CMS;
 const CFG = window.SITE_CONFIG || {};
-const FBC = CFG.firebase || {};
+const SB = CFG.supabase || {};
 const ADMINS = (CFG.adminEmails || []).map(e => String(e).toLowerCase());
-const DEMO = !(FBC.projectId && FBC.apiKey) && CMS.isLocal;
-const FB_VER = '10.12.2';
+const DEMO = !(SB.url && SB.anonKey) && CMS.isLocal;
 
 let started = false, backend = null, user = null;
 let editing = false, dirty = false;
@@ -21,28 +20,57 @@ const setHint = () => { try { localStorage.setItem(CMS.hintKey, '1'); } catch (e
 const clearHint = () => { try { localStorage.removeItem(CMS.hintKey); } catch (e) {} };
 
 /* ================= backends ================= */
-async function makeFirebase() {
-  const base = 'https://www.gstatic.com/firebasejs/' + FB_VER + '/';
-  const [app, auth, fs] = await Promise.all([
-    import(base + 'firebase-app.js'), import(base + 'firebase-auth.js'), import(base + 'firebase-firestore.js')
-  ]);
-  const a = app.initializeApp({ apiKey: FBC.apiKey, authDomain: FBC.authDomain, projectId: FBC.projectId, appId: FBC.appId });
-  const au = auth.getAuth(a), db = fs.getFirestore(a);
+function makeSupabase() {
+  const base = String(SB.url).replace(/\/$/, ''), KEY = SB.anonKey, SKEY = 'cms.sb.session';
+  let session = null, cb = () => {};
+  const load = () => { try { return JSON.parse(localStorage.getItem(SKEY) || 'null'); } catch (e) { return null; } };
+  const save = s => { session = s; try { s ? localStorage.setItem(SKEY, JSON.stringify(s)) : localStorage.removeItem(SKEY); } catch (e) {} };
+  const tokens = d => ({ access_token: d.access_token, refresh_token: d.refresh_token, expires_at: Date.now() + (d.expires_in || 3600) * 1000 - 30000, email: (d.user && d.user.email) || '' });
+  async function auth(path, body) {
+    const r = await fetch(base + '/auth/v1/' + path, { method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) { const e = new Error(d.msg || d.error_description || d.message || ('HTTP ' + r.status)); e.code = d.error_code || d.error || ('auth/' + r.status); throw e; }
+    return d;
+  }
+  async function token() {
+    if (!session) throw new Error('Not signed in');
+    if (Date.now() > session.expires_at) {
+      try { save(tokens(await auth('token?grant_type=refresh_token', { refresh_token: session.refresh_token }))); }
+      catch (e) { save(null); cb(null); throw e; }
+    }
+    return session.access_token;
+  }
+  async function rest(path, opts) {
+    opts = opts || {};
+    const t = await token();
+    const r = await fetch(base + '/rest/v1/' + path, Object.assign({}, opts, { headers: Object.assign({ apikey: KEY, Authorization: 'Bearer ' + t, 'Content-Type': 'application/json' }, opts.headers || {}) }));
+    const txt = await r.text();
+    if (!r.ok) { const e = new Error('HTTP ' + r.status + ' ' + txt.slice(0, 160)); e.code = (r.status === 401 || r.status === 403) ? 'permission-denied' : 'http-' + r.status; throw e; }
+    return txt ? JSON.parse(txt) : null;
+  }
   return {
-    onUser: cb => auth.onAuthStateChanged(au, cb),
-    login: (email, pw) => auth.signInWithEmailAndPassword(au, email, pw),
-    reset: email => auth.sendPasswordResetEmail(au, email),
-    logout: () => auth.signOut(au),
-    async read() { const s = await fs.getDoc(fs.doc(db, 'site', 'content')); return s.exists() ? s.data().json : null; },
-    async write(json, email) { await fs.setDoc(fs.doc(db, 'site', 'content'), { json, updatedAt: fs.serverTimestamp(), by: email }); },
+    onUser(f) {
+      cb = f; session = load();
+      const go = () => setTimeout(() => cb(session ? { email: session.email } : null), 0);
+      if (session && Date.now() > session.expires_at) token().then(go, go); else go();
+    },
+    async login(email, pw) { save(tokens(await auth('token?grant_type=password', { email, password: pw }))); cb({ email: session.email }); },
+    async logout() {
+      try { if (session) await fetch(base + '/auth/v1/logout', { method: 'POST', headers: { apikey: KEY, Authorization: 'Bearer ' + session.access_token } }); } catch (e) {}
+      save(null); cb(null);
+    },
+    async read() { const rows = await rest('site_content?id=eq.content&select=json'); return rows && rows[0] ? rows[0].json : null; },
+    async write(json, email) {
+      await rest('site_content?on_conflict=id', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify({ id: 'content', json, updated_by: email, updated_at: new Date().toISOString() }) });
+    },
     async archive(json, email) {
-      await fs.addDoc(fs.collection(db, 'versions'), { json, savedAt: fs.serverTimestamp(), by: email });
-      const snap = await fs.getDocs(fs.query(fs.collection(db, 'versions'), fs.orderBy('savedAt', 'desc'), fs.limit(40)));
-      for (const d of snap.docs.slice(20)) await fs.deleteDoc(d.ref);
+      await rest('site_versions', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ json, saved_by: email }) });
+      const old = await rest('site_versions?select=id&order=saved_at.desc&offset=20&limit=200');
+      if (old && old.length) await rest('site_versions?id=in.(' + old.map(r => r.id).join(',') + ')', { method: 'DELETE', headers: { Prefer: 'return=minimal' } });
     },
     async versions() {
-      const snap = await fs.getDocs(fs.query(fs.collection(db, 'versions'), fs.orderBy('savedAt', 'desc'), fs.limit(20)));
-      return snap.docs.map(d => { const x = d.data(); return { id: d.id, at: x.savedAt && x.savedAt.toDate ? x.savedAt.toDate() : null, by: x.by, json: x.json }; });
+      const rows = await rest('site_versions?select=id,json,saved_at,saved_by&order=saved_at.desc&limit=20');
+      return (rows || []).map(r => ({ id: r.id, at: r.saved_at ? new Date(r.saved_at) : null, by: r.saved_by, json: r.json }));
     }
   };
 }
@@ -56,7 +84,6 @@ function makeDemo() {
     demo: true,
     onUser(f) { cb = f; setTimeout(() => cb(u), 0); },
     async login() { u = { email: 'demo@local', emailVerified: true }; set('cms.demo.user', '1'); cb(u); },
-    async reset() {},
     async logout() { u = null; try { localStorage.removeItem('cms.demo.user'); } catch (e) { delete mem['cms.demo.user']; } cb(null); },
     async read() { return get('cms.demo.content'); },
     async write(json) { set('cms.demo.content', json); },
@@ -71,10 +98,10 @@ export async function start(mode) {
   if (started) { user && isAdmin(user) ? showBar() : showLogin(); return; }
   if (!DEMO && !CMS.HAS) {
     clearHint();
-    if (mode === 'login') toast('The admin service is not set up yet. Follow SETUP.md to connect Firebase.', 'warn');
+    if (mode === 'login') toast('The admin service is not set up yet. Follow SETUP.md to connect Supabase.', 'warn');
     return;
   }
-  try { backend = DEMO ? makeDemo() : await makeFirebase(); }
+  try { backend = DEMO ? makeDemo() : makeSupabase(); }
   catch (e) { console.error(e); toast('Could not load the admin service. Check your internet and try again.', 'warn'); return; }
   started = true;
   backend.onUser(onUser);
@@ -189,7 +216,7 @@ function buildUI() {
     h('div', { class: 'foot', style: 'justify-content:center' },
       h('button', { class: 'cms-btn pri', type: 'submit' }, DEMO ? 'Start demo session' : 'Sign in'),
       h('button', { class: 'cms-btn', type: 'button', onclick: hideLogin }, 'Cancel')),
-    h('p', { style: 'margin:12px 0 0' }, h('a', { href: '#', style: 'color:var(--a1);font-size:13px', onclick: e => { e.preventDefault(); doReset(); } }, 'Forgot password?'))));
+    ));
   ui.modalBack = h('div', { class: 'cms-back cms-ui', onclick: e => { if (e.target === ui.modalBack) closeModal(); } });
 
   document.body.append(ui.bar, ui.item, ui.prop, ui.toast, ui.file, ui.loginBack, ui.modalBack);
@@ -228,17 +255,10 @@ async function doLogin() {
   catch (e) {
     const c = (e && e.code) || '';
     msg.textContent = /invalid|wrong-password|user-not-found|credential/.test(c) ? 'Wrong email or password.'
-      : /too-many/.test(c) ? 'Too many attempts. Wait a few minutes, or use Forgot password.'
+      : /too-many|rate_limit/.test(c) ? 'Too many attempts. Please wait a few minutes and try again.'
       : /network/.test(c) ? 'Network problem. Please try again.'
       : 'Login failed (' + (c || e.message || 'unknown') + ').';
   }
-}
-async function doReset() {
-  const em = $('#cms-email').value.trim(), msg = $('#cms-login-err');
-  if (DEMO) { msg.textContent = 'Not available in demo mode.'; return; }
-  if (!em) { msg.textContent = 'Type your admin email above first.'; return; }
-  try { await backend.reset(em); msg.style.color = '#34d399'; msg.textContent = 'If that email has an admin account, a reset link was sent.'; }
-  catch (e) { msg.style.color = '#fb7185'; msg.textContent = 'Could not send the reset email.'; }
 }
 function toast(msg, kind) {
   buildUI();
@@ -446,7 +466,7 @@ async function save() {
     toast(backend.demo ? 'Saved in this browser (demo mode).' : 'Saved. Your website is updated.', 'ok');
   } catch (e) {
     console.error(e); setDirty(true);
-    toast('Save failed: ' + (e.code || e.message || e) + (String(e.code).includes('permission') ? '. Check firestore.rules and the admin email.' : ''), 'warn');
+    toast('Save failed: ' + (e.code || e.message || e) + (String(e.code).includes('permission') ? '. Check the SQL policies and the admin email.' : ''), 'warn');
   }
 }
 

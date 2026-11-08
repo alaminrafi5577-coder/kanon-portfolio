@@ -1,11 +1,11 @@
 /* Public side of the site editor.
    - remembers the original HTML of every [data-region]
-   - loads admin-saved content from Firestore (read-only REST call, no SDK) and applies it
+   - loads admin-saved content from Supabase (read-only REST call, no SDK) and applies it
    - opens admin.js on demand when an admin signs in */
 (function () {
   'use strict';
-  var CFG = window.SITE_CONFIG || {}, FB = CFG.firebase || {};
-  var HAS = !!(FB.projectId && FB.apiKey);
+  var CFG = window.SITE_CONFIG || {}, SB = CFG.supabase || {};
+  var HAS = !!(SB.url && SB.anonKey);
   var CACHE = 'cms.content.v1', HINT = 'cms.admin.hint';
 
   var REG = {};
@@ -78,13 +78,12 @@
   }
 
   function fetchRemote() {
-    var url = 'https://firestore.googleapis.com/v1/projects/' + encodeURIComponent(FB.projectId) + '/databases/(default)/documents/site/content?key=' + encodeURIComponent(FB.apiKey);
-    return fetch(url, { cache: 'no-store' }).then(function (r) {
-      if (r.status === 404) return null;
+    var url = String(SB.url).replace(/\/$/, '') + '/rest/v1/site_content?id=eq.content&select=json';
+    return fetch(url, { headers: { apikey: SB.anonKey }, cache: 'no-store' }).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
-    }).then(function (d) {
-      var raw = d && d.fields && d.fields.json && d.fields.json.stringValue;
+    }).then(function (rows) {
+      var raw = rows && rows[0] && rows[0].json;
       return raw ? { raw: raw, json: JSON.parse(raw) } : null;
     });
   }

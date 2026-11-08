@@ -1,14 +1,11 @@
-/* Site settings. Fill these in after creating the Firebase project (see SETUP.md).
-   The Firebase web config below is NOT a secret: it only identifies your project.
-   Who can change the site is decided by firestore.rules + the admin email list. */
+/* Site settings. Fill in the two Supabase values after creating the project (see SETUP.md).
+   Both values are public by design (they only identify your project).
+   Who can change the site is decided by the SQL policies in supabase-setup.sql + the admin email. */
 window.SITE_CONFIG = {
-  firebase: {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    appId: ""
+  supabase: {
+    url: "",      // e.g. https://abcdxyz.supabase.co
+    anonKey: ""   // the "anon" / "publishable" key
   },
-  // Admin email(s) allowed to edit the site (the account you create in Firebase Authentication).
-  // Must match the list inside firestore.rules.
+  // Admin email (the user you create in Supabase Authentication). Must match supabase-setup.sql.
   adminEmails: ["ahmedkanon1994@gmail.com"]
 };
