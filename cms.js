@@ -14,9 +14,9 @@
   });
 
   /* ---------- sanitiser: only our own markup survives ---------- */
-  var ALLOWED = new Set('header section footer div span p h1 h2 h3 h4 a b strong em i small ul ol li br button img iframe dl dt dd svg path'.split(' '));
+  var ALLOWED = new Set('header section footer div span p h1 h2 h3 h4 a b strong em i small ul ol li br button img iframe dl dt dd svg path circle text textpath defs g'.split(' '));
   var DROP = new Set(['script', 'style', 'link', 'meta', 'object', 'embed', 'form', 'input', 'textarea', 'select', 'base', 'noscript', 'template', 'frame', 'frameset', 'applet', 'audio', 'video', 'canvas', 'math']);
-  var ATTRS = new Set(['class', 'id', 'href', 'target', 'rel', 'src', 'alt', 'title', 'loading', 'referrerpolicy', 'role', 'type', 'hidden', 'style', 'viewbox', 'd', 'fill', 'xmlns', 'tabindex', 'width', 'height', 'lang']);
+  var ATTRS = new Set(['class', 'id', 'href', 'target', 'rel', 'src', 'alt', 'title', 'loading', 'referrerpolicy', 'role', 'type', 'hidden', 'style', 'viewbox', 'd', 'fill', 'xmlns', 'tabindex', 'width', 'height', 'lang', 'cx', 'cy', 'r', 'x', 'y', 'font-size', 'letter-spacing', 'stroke', 'stroke-width', 'text-anchor', 'startoffset', 'textlength', 'transform', 'dominant-baseline', 'opacity']);
 
   function walk(node) {
     Array.prototype.slice.call(node.children).forEach(function (el) {

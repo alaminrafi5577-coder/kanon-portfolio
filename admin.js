@@ -166,7 +166,7 @@ function injectStyle() {
   #cms-bar .who{font-size:12px;color:var(--muted);padding:0 6px;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .cms-btn{font:inherit;font-weight:600;cursor:pointer;border:1px solid var(--card-b);background:var(--card);color:var(--text);padding:8px 13px;border-radius:11px;transition:.15s}
   .cms-btn:hover{border-color:var(--a2)}
-  .cms-btn.pri{background:var(--grad);color:#fff;border-color:transparent}
+  .cms-btn.pri{background:var(--grad);color:var(--on-grad);border-color:transparent}
   .cms-btn.danger{color:#fb7185}
   .cms-btn:disabled{opacity:.4;cursor:not-allowed}
   .cms-btn.hide{display:none}
@@ -183,7 +183,7 @@ function injectStyle() {
   .cms-back{position:fixed;inset:0;background:rgba(5,8,20,.6);display:none;place-items:center;padding:16px}
   .cms-back.on{display:grid}
   .cms-modal{background:var(--bg);border:1px solid var(--card-b);border-radius:20px;padding:22px;width:min(560px,100%);max-height:86vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-  .cms-modal h3{font-family:"Space Grotesk",sans-serif;font-size:1.25rem;margin-bottom:6px}
+  .cms-modal h3{font-family:var(--display);font-size:1.25rem;margin-bottom:6px}
   .cms-modal p{color:var(--muted);margin-bottom:14px}
   .cms-modal .row{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:9px 0;border-top:1px solid var(--card-b)}
   .cms-modal .row small{color:var(--muted)}
@@ -199,7 +199,7 @@ function injectStyle() {
   body.cms-editing .reveal{opacity:1!important;transform:none!important}
   body.cms-editing{padding-bottom:90px}
   .cmp{max-width:760px;margin:0 auto 26px;padding:18px;border-radius:20px;background:var(--card);border:1px solid color-mix(in srgb,var(--a2) 45%,var(--card-b))}
-  .cmp h4{font-family:"Space Grotesk",sans-serif;font-size:1rem;margin-bottom:10px}
+  .cmp h4{font-family:var(--display);font-size:1rem;margin-bottom:10px}
   .cmp-title{width:100%;font:inherit;font-weight:600;color:var(--text);background:var(--bg2);border:1px solid var(--card-b);border-radius:12px;padding:10px 14px;margin-bottom:8px}
   .cmp-title:focus{outline:2px solid var(--a1);outline-offset:1px}
   .cmp textarea{width:100%;min-height:96px;resize:vertical;font:inherit;color:var(--text);background:var(--bg2);border:1px solid var(--card-b);border-radius:12px;padding:12px 14px;line-height:1.6}
@@ -336,6 +336,7 @@ function regions() { return Object.entries(CMS.REG).map(([name, r]) => [name, r.
 
 function enterEdit() {
   editing = true; window.__siteEditing = true;
+  $$('[style*=\"--mx\"]').forEach(e => { e.style.removeProperty('--mx'); e.style.removeProperty('--my'); if (!e.getAttribute('style')) e.removeAttribute('style'); });
   document.body.classList.add('cms-editing');
   $$('[data-region] .reveal').forEach(n => n.classList.add('show'));
   $$('[data-region] [data-count]').forEach(n => { n.textContent = (n.dataset.prefix || '') + n.dataset.count; });
@@ -362,6 +363,7 @@ function discard() { if (dirty && !confirm('Discard all unsaved changes?')) retu
 
 function serializeRegion(el) {
   const c = el.cloneNode(true);
+  c.querySelectorAll('[style]').forEach(e => { e.style.removeProperty('--mx'); e.style.removeProperty('--my'); if (!e.getAttribute('style')) e.removeAttribute('style'); });
   c.querySelectorAll('[contenteditable]').forEach(e => e.removeAttribute('contenteditable'));
   c.querySelectorAll('[data-cms-ed]').forEach(e => e.removeAttribute('data-cms-ed'));
   c.querySelectorAll('[spellcheck]').forEach(e => e.removeAttribute('spellcheck'));
@@ -380,7 +382,7 @@ function serializeRegion(el) {
 }
 
 /* ---------- item tools (move / duplicate / delete) ---------- */
-const LIST_PARENTS = '.grid,.timeline,.steps,.stats,.now,.tags,.values,.promise,.contact-grid,.grid4,.vm,.btns,.socials';
+const LIST_PARENTS = '.grid,.timeline,.steps,.stats,.nowbar,.tags,.values,.promise,.contact-grid,.grid4,.vm,.btns,.socials';
 function isItem(n, p) {
   if (p.matches('.cbox,.opanel,.office-info')) return n.classList.contains('row');
   if (p.matches('dl')) return n.tagName === 'DIV';
