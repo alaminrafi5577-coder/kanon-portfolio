@@ -71,6 +71,23 @@ function makeSupabase() {
     async versions() {
       const rows = await rest('site_versions?select=id,json,saved_at,saved_by&order=saved_at.desc&limit=20');
       return (rows || []).map(r => ({ id: r.id, at: r.saved_at ? new Date(r.saved_at) : null, by: r.saved_by, json: r.json }));
+    },
+    async postInsert(row) { await rest('site_posts', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify(row) }); },
+    async postUpdate(id, row) { await rest('site_posts?id=eq.' + Number(id), { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify(row) }); },
+    async postDelete(id) { await rest('site_posts?id=eq.' + Number(id), { method: 'DELETE', headers: { Prefer: 'return=minimal' } }); },
+    async uploadImage(blob) {
+      const t = await token();
+      const path = new Date().getFullYear() + '/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.jpg';
+      const r = await fetch(base + '/storage/v1/object/post-images/' + path, { method: 'POST', headers: { apikey: KEY, Authorization: 'Bearer ' + t, 'Content-Type': 'image/jpeg', 'cache-control': 'max-age=31536000' }, body: blob });
+      if (!r.ok) { const x = await r.text(); const e = new Error('Photo upload failed (' + r.status + ') ' + x.slice(0, 120)); e.code = r.status === 401 || r.status === 403 ? 'permission-denied' : 'upload-' + r.status; throw e; }
+      return base + '/storage/v1/object/public/post-images/' + path;
+    },
+    async deleteImages(urls) {
+      const marker = '/object/public/post-images/';
+      const prefixes = (urls || []).filter(u => String(u).includes(marker)).map(u => String(u).split(marker)[1]);
+      if (!prefixes.length) return;
+      const t = await token();
+      await fetch(base + '/storage/v1/object/post-images', { method: 'DELETE', headers: { apikey: KEY, Authorization: 'Bearer ' + t, 'Content-Type': 'application/json' }, body: JSON.stringify({ prefixes }) });
     }
   };
 }
@@ -88,7 +105,12 @@ function makeDemo() {
     async read() { return get('cms.demo.content'); },
     async write(json) { set('cms.demo.content', json); },
     async archive(json) { const v = JSON.parse(get('cms.demo.versions') || '[]'); v.unshift({ id: String(Date.now()), at: new Date().toISOString(), by: 'demo', json }); set('cms.demo.versions', JSON.stringify(v.slice(0, 20))); },
-    async versions() { return JSON.parse(get('cms.demo.versions') || '[]').map(v => Object.assign({}, v, { at: new Date(v.at) })); }
+    async versions() { return JSON.parse(get('cms.demo.versions') || '[]').map(v => Object.assign({}, v, { at: new Date(v.at) })); },
+    async postInsert(row) { const a = JSON.parse(get('cms.demo.posts') || '[]'); a.push(Object.assign({ id: Date.now(), pinned: false }, row)); set('cms.demo.posts', JSON.stringify(a)); },
+    async postUpdate(id, row) { const a = JSON.parse(get('cms.demo.posts') || '[]'); const p = a.find(x => Number(x.id) === Number(id)); if (p) Object.assign(p, row); set('cms.demo.posts', JSON.stringify(a)); },
+    async postDelete(id) { const a = JSON.parse(get('cms.demo.posts') || '[]').filter(x => Number(x.id) !== Number(id)); set('cms.demo.posts', JSON.stringify(a)); },
+    uploadImage: blob => new Promise((res, rej) => { const f = new FileReader(); f.onload = () => res(f.result); f.onerror = rej; f.readAsDataURL(blob); }),
+    async deleteImages() {}
   };
 }
 
@@ -118,12 +140,12 @@ async function onUser(u) {
       overrides = Object.assign({}, c.regions || {}); settings = Object.assign({}, c.settings || {});
       if (backend.demo && c && (c.regions || c.settings)) CMS.apply(c);
     } catch (e) { console.error(e); toast('Signed in, but could not read saved content: ' + (e.message || e), 'warn'); }
-    showBar();
+    showBar(); mountPosts();
   } else if (u) {
     toast('That account is not allowed to edit this site.', 'warn');
     clearHint(); backend.logout(); showLogin();
   } else {
-    clearHint(); hideBar(); if (editing) leaveEdit();
+    clearHint(); hideBar(); unmountPosts(); if (editing) leaveEdit();
   }
 }
 
@@ -170,6 +192,20 @@ function injectStyle() {
   body.cms-editing [data-region] .glass:hover,body.cms-editing [data-region] .btn:hover,body.cms-editing [data-region] .now-card:hover{transform:none!important}
   body.cms-editing .reveal{opacity:1!important;transform:none!important}
   body.cms-editing{padding-bottom:90px}
+  .cmp{max-width:760px;margin:0 auto 26px;padding:18px;border-radius:20px;background:var(--card);border:1px solid color-mix(in srgb,var(--a2) 45%,var(--card-b))}
+  .cmp h4{font-family:"Space Grotesk",sans-serif;font-size:1rem;margin-bottom:10px}
+  .cmp textarea{width:100%;min-height:96px;resize:vertical;font:inherit;color:var(--text);background:var(--bg2);border:1px solid var(--card-b);border-radius:12px;padding:12px 14px;line-height:1.6}
+  .cmp textarea:focus{outline:2px solid var(--a1);outline-offset:1px}
+  .cmp-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  .cmp-row select,.cmp-row input[type=datetime-local]{font:inherit;color:var(--text);background:var(--bg2);border:1px solid var(--card-b);border-radius:10px;padding:8px 10px;min-width:0}
+  .cmp-row .grow{flex:1}
+  .cmp-status{font-size:12.5px;color:var(--muted);min-height:18px;margin-top:8px}
+  .cmp-status.err{color:#fb7185}
+  .cmp-prev{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin-top:10px}
+  .cmp-prev:empty{display:none}
+  .cmp-thumb{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:var(--bg2)}
+  .cmp-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .cmp-thumb button{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:0;cursor:pointer;background:rgba(5,8,20,.75);color:#fff;font-size:13px;line-height:1}
   `;
   document.head.appendChild(s);
 }
@@ -537,4 +573,124 @@ function restore(v) {
     baseline = {}; regions().forEach(([n, el]) => { baseline[n] = serializeRegion(el); });
     setDirty(true); closeModal(); toast('Version restored on the page. Press Save to publish.', 'ok');
   } catch (e) { console.error(e); toast('That version could not be restored.', 'warn'); }
+}
+
+
+/* ================= posts (Latest updates) ================= */
+const POST_KINDS = [['update', '📣 Update'], ['meeting', '📅 Meeting'], ['event', '🎉 Event'], ['news', '📰 News']];
+let composer = null;
+
+function mountPosts() {
+  if (!window.POSTS) return;
+  window.POSTS.setAdmin(true); window.POSTS.onAction(postAction);
+  const slot = $('#composer-slot');
+  if (slot && !composer) { composer = buildEditor({ post: null, onDone: () => { window.POSTS.reload(); } }); slot.appendChild(composer); }
+}
+function unmountPosts() {
+  if (window.POSTS) window.POSTS.setAdmin(false);
+  if (composer) { composer.remove(); composer = null; }
+}
+
+async function shrink(file) {
+  const MAX = DEMO ? 700 : 1600;
+  let bmp;
+  try { bmp = await createImageBitmap(file, { imageOrientation: 'from-image' }); } catch (e) { bmp = await createImageBitmap(file); }
+  const sc = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
+  const cv = document.createElement('canvas'); cv.width = Math.round(bmp.width * sc); cv.height = Math.round(bmp.height * sc);
+  cv.getContext('2d').drawImage(bmp, 0, 0, cv.width, cv.height);
+  let q = DEMO ? 0.6 : 0.84, blob = await new Promise(r => cv.toBlob(r, 'image/jpeg', q));
+  while (blob && blob.size > 1400000 && q > 0.4) { q -= 0.1; blob = await new Promise(r => cv.toBlob(r, 'image/jpeg', q)); }
+  if (!blob) throw new Error('Could not process that image');
+  return blob;
+}
+
+function localInputValue(date) {
+  const d = new Date(date), p = n => String(n).padStart(2, '0');
+  return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes());
+}
+
+/* One editor used for both "new post" (inline) and "edit post" (modal). */
+function buildEditor({ post, onDone }) {
+  const items = (post && post.images ? post.images : []).map(u => ({ url: u, old: true }));
+  const removed = [];
+  const ta = h('textarea', { placeholder: 'Write an update: a meeting, an event, news or just a thought. Add photos below.' });
+  ta.value = post ? post.body : '';
+  const sel = h('select', {}, ...POST_KINDS.map(([v, l]) => h('option', { value: v }, l)));
+  sel.value = post ? post.kind : 'update';
+  const dt = h('input', { type: 'datetime-local' }); dt.value = localInputValue(post ? post.posted_at : Date.now());
+  const prev = h('div', { class: 'cmp-prev' });
+  const status = h('div', { class: 'cmp-status' });
+  const file = h('input', { type: 'file', accept: 'image/*', multiple: '', style: 'display:none' });
+  const say = (m, err) => { status.textContent = m || ''; status.className = 'cmp-status' + (err ? ' err' : ''); };
+
+  function drawPreviews() {
+    prev.textContent = '';
+    items.forEach((it, i) => {
+      prev.append(h('div', { class: 'cmp-thumb' }, h('img', { src: it.url, alt: '' }),
+        h('button', { type: 'button', title: 'Remove photo', onclick: () => { if (it.old) removed.push(it.url); else URL.revokeObjectURL(it.url); items.splice(i, 1); drawPreviews(); } }, '✕')));
+    });
+  }
+  drawPreviews();
+
+  file.addEventListener('change', async () => {
+    const list = Array.from(file.files || []); file.value = '';
+    for (const f of list) {
+      if (items.length >= 10) { say('You can add up to 10 photos per post.', true); break; }
+      if (!/^image\//.test(f.type)) continue;
+      try { say('Preparing photo…'); const blob = await shrink(f); items.push({ blob, url: URL.createObjectURL(blob) }); say(''); }
+      catch (e) { say(e.message || 'Could not read that photo.', true); }
+    }
+    drawPreviews();
+  });
+
+  const go = h('button', { class: 'cms-btn pri', type: 'button' }, post ? 'Save changes' : 'Post');
+  go.addEventListener('click', async () => {
+    const text = ta.value.trim();
+    if (!text && !items.length) { say('Write something or add a photo first.', true); return; }
+    go.disabled = true;
+    try {
+      const urls = []; const fresh = items.filter(i => i.blob).length; let n = 0;
+      for (const it of items) {
+        if (it.blob) { n++; say('Uploading photo ' + n + ' of ' + fresh + '…'); urls.push(await backend.uploadImage(it.blob)); }
+        else urls.push(it.url);
+      }
+      say(post ? 'Saving…' : 'Posting…');
+      const row = { body: text, kind: sel.value, images: urls, posted_at: new Date(dt.value || Date.now()).toISOString() };
+      if (post) { await backend.postUpdate(post.id, row); if (removed.length) backend.deleteImages(removed).catch(() => {}); }
+      else { row.created_by = user.email; await backend.postInsert(row); }
+      items.forEach(i => { if (!i.old) URL.revokeObjectURL(i.url); });
+      if (!post) { ta.value = ''; items.length = 0; sel.value = 'update'; dt.value = localInputValue(Date.now()); drawPreviews(); }
+      say(''); toast(post ? 'Post updated.' : 'Posted! It is now live on your site.', 'ok');
+      onDone && onDone();
+    } catch (e) {
+      console.error(e);
+      say('Failed: ' + (e.message || e) + (String(e.code).includes('permission') ? ' (check the posts SQL was run)' : ''), true);
+    }
+    go.disabled = false;
+  });
+
+  const wrap = h('div', { class: 'cmp' },
+    h('h4', {}, post ? 'Edit post' : '✍️ New post'),
+    ta,
+    prev,
+    h('div', { class: 'cmp-row' }, sel, dt,
+      h('button', { class: 'cms-btn', type: 'button', onclick: () => file.click() }, '📷 Add photos'),
+      h('span', { class: 'grow' }), go),
+    status, file);
+  return wrap;
+}
+
+async function postAction(act, p) {
+  try {
+    if (act === 'pin') { await backend.postUpdate(p.id, { pinned: !p.pinned }); window.POSTS.reload(); toast(p.pinned ? 'Unpinned.' : 'Pinned to the top.', 'ok'); }
+    else if (act === 'del') {
+      if (!confirm('Delete this post and its photos? This cannot be undone.')) return;
+      await backend.postDelete(p.id); backend.deleteImages(p.images || []).catch(() => {});
+      window.POSTS.reload(); toast('Post deleted.', 'ok');
+    } else if (act === 'edit') {
+      const ed = buildEditor({ post: p, onDone: () => { closeModal(); window.POSTS.reload(); } });
+      const box = h('div', { class: 'cms-modal', style: 'width:min(640px,100%)' }, ed, h('div', { class: 'foot' }, h('button', { class: 'cms-btn', onclick: closeModal }, 'Cancel')));
+      openModal(box);
+    }
+  } catch (e) { console.error(e); toast('Action failed: ' + (e.message || e), 'warn'); }
 }

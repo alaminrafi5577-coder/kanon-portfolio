@@ -260,6 +260,39 @@
   .foot p{color:var(--muted);font-size:.9rem;max-width:340px}
   .copy{text-align:center;color:var(--muted);font-size:.82rem;margin-top:34px;padding-top:22px;border-top:1px solid var(--card-b)}
 
+  /* latest updates feed */
+  .posts{display:grid;gap:20px;max-width:760px;margin:0 auto}
+  .post{padding:20px 22px}
+  .phead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  .pav{width:44px;height:44px;border-radius:50%;background:var(--photo) center 20%/cover;border:2px solid var(--a1);flex:none}
+  .phead b{display:block;font-size:.98rem}
+  .phead small{color:var(--muted);font-size:.78rem}
+  .pkind{margin-left:auto;font-size:.74rem;font-weight:600;padding:4px 11px;border-radius:999px;background:rgba(56,189,248,.14);color:var(--a1);white-space:nowrap}
+  .pkind.k-meeting{background:rgba(167,139,250,.16);color:var(--a2)}
+  .pkind.k-event{background:rgba(244,114,182,.16);color:var(--a3)}
+  .pkind.k-news{background:rgba(52,211,153,.15);color:var(--ok)}
+  .ppin{font-size:.74rem;color:var(--muted)}
+  .pbody{font-size:.98rem;line-height:1.7;word-break:break-word}
+  .pbody a{color:var(--a1);text-decoration:underline}
+  .pg{display:grid;gap:6px;margin-top:14px;border-radius:14px;overflow:hidden}
+  .pg1{grid-template-columns:1fr}
+  .pg2,.pg3,.pg4{grid-template-columns:1fr 1fr}
+  .pg3 .pimg:first-child{grid-column:1/-1}
+  .pimg{position:relative;padding:0;border:0;background:var(--bg2);cursor:zoom-in;aspect-ratio:4/3;overflow:hidden;display:block}
+  .pg1 .pimg,.pg3 .pimg:first-child{aspect-ratio:16/10}
+  .pimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+  .pimg:hover img{transform:scale(1.04)}
+  .pmore{position:absolute;inset:0;display:grid;place-items:center;background:rgba(5,8,20,.55);color:#fff;font-size:1.7rem;font-weight:700}
+  .ptools{display:flex;gap:8px;margin-top:14px;justify-content:flex-end;flex-wrap:wrap}
+  .ptools button{font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--text);background:var(--card);border:1px solid var(--card-b);border-radius:10px;padding:6px 11px}
+  .ptools button:hover{border-color:var(--a2)}
+  .posts-empty{text-align:center;color:var(--muted);padding:34px 10px}
+  .posts-more{text-align:center;margin-top:22px}
+  .lb{position:fixed;inset:0;z-index:300;background:rgba(5,8,20,.93);display:grid;place-items:center;padding:16px}
+  .lb img{max-width:94vw;max-height:88vh;border-radius:10px;box-shadow:0 20px 70px rgba(0,0,0,.6)}
+  .lb button{position:absolute;border:0;cursor:pointer;color:#fff;background:rgba(255,255,255,.12);backdrop-filter:blur(6px);width:46px;height:46px;border-radius:50%;font-size:1.5rem;line-height:1}
+  .lb button:hover{background:rgba(255,255,255,.24)}
+  .lb-x{top:16px;right:16px}.lb-p{left:14px;top:50%;transform:translateY(-50%)}.lb-n{right:14px;top:50%;transform:translateY(-50%)}
   .admin-entry{text-align:center;padding:0 0 20px;font-size:.76rem}
   .admin-entry a{color:var(--muted);opacity:.45;transition:opacity .2s}
   .admin-entry a:hover{opacity:1}
@@ -307,6 +340,7 @@
   <div class="wrap">
     <a href="#home" class="logo" aria-label="Md. Kanon Ahmed, home"><span class="mono">K</span><span>Kanon Ahmed<small>Managing Director · A&amp;R</small></span></a>
     <ul id="menu">
+      <li><a class="lk" href="#updates">Updates</a></li>
       <li><a class="lk" href="#about">About</a></li>
       <li class="dd">
         <button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false">Companies</button>
@@ -381,6 +415,19 @@
 </div>
 
 <!-- ABOUT -->
+<section id="updates">
+  <div class="wrap">
+    <div data-region="updates-head">
+      <div class="eyebrow reveal">Latest updates</div>
+      <h2 class="reveal">News, meetings &amp; <span class="grad-text">moments</span></h2>
+      <p class="sub reveal">Regular updates from my companies: meetings, events, announcements and photos.</p>
+    </div>
+    <div id="composer-slot"></div>
+    <div id="posts" class="posts" aria-live="polite"></div>
+    <div class="posts-more"><button id="posts-more" class="btn ghost" type="button" hidden>Load more</button></div>
+  </div>
+</section>
+
 <section id="about" data-region="about">
   <div class="wrap">
     <div class="eyebrow reveal">About me</div>
@@ -691,7 +738,7 @@
       </div>
       <div>
         <h4>Explore</h4>
-        <ul><li><a href="#about">About</a></li><li><a href="#ar">A&amp;R Entrepreneur</a></li><li><a href="#yeepix">Yeepix</a></li><li><a href="#services">Services</a></li><li><a href="#office">Offices</a></li></ul>
+        <ul><li><a href="#updates">Updates</a></li><li><a href="#about">About</a></li><li><a href="#ar">A&amp;R Entrepreneur</a></li><li><a href="#yeepix">Yeepix</a></li><li><a href="#services">Services</a></li><li><a href="#office">Offices</a></li></ul>
       </div>
       <div>
         <h4>Reach us</h4>
@@ -790,5 +837,6 @@
 </script>
 <script src="site-config.js"></script>
 <script src="cms.js"></script>
+<script src="posts.js"></script>
 </body>
 </html>
