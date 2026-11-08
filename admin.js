@@ -82,6 +82,10 @@ function makeSupabase() {
       if (!r.ok) { const x = await r.text(); const e = new Error('Photo upload failed (' + r.status + ') ' + x.slice(0, 120)); e.code = r.status === 401 || r.status === 403 ? 'permission-denied' : 'upload-' + r.status; throw e; }
       return base + '/storage/v1/object/public/post-images/' + path;
     },
+    async commentsAll() { return (await rest('post_comments?select=id,post_id,name,body,approved,created_at&order=approved.asc,created_at.desc&limit=100')) || []; },
+    async commentApprove(id) { await rest('post_comments?id=eq.' + Number(id), { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ approved: true }) }); },
+    async commentDelete(id) { await rest('post_comments?id=eq.' + Number(id), { method: 'DELETE', headers: { Prefer: 'return=minimal' } }); },
+    async commentInsert(row) { await rest('post_comments', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify(row) }); },
     async deleteImages(urls) {
       const marker = '/object/public/post-images/';
       const prefixes = (urls || []).filter(u => String(u).includes(marker)).map(u => String(u).split(marker)[1]);
@@ -110,7 +114,9 @@ function makeDemo() {
     async postUpdate(id, row) { const a = JSON.parse(get('cms.demo.posts') || '[]'); const p = a.find(x => Number(x.id) === Number(id)); if (p) Object.assign(p, row); set('cms.demo.posts', JSON.stringify(a)); },
     async postDelete(id) { const a = JSON.parse(get('cms.demo.posts') || '[]').filter(x => Number(x.id) !== Number(id)); set('cms.demo.posts', JSON.stringify(a)); },
     uploadImage: blob => new Promise((res, rej) => { const f = new FileReader(); f.onload = () => res(f.result); f.onerror = rej; f.readAsDataURL(blob); }),
-    async deleteImages() {}
+    async deleteImages() {},
+    async commentsAll() { return []; },
+    async commentApprove() {}, async commentDelete() {}, async commentInsert() {}
   };
 }
 
@@ -194,6 +200,8 @@ function injectStyle() {
   body.cms-editing{padding-bottom:90px}
   .cmp{max-width:760px;margin:0 auto 26px;padding:18px;border-radius:20px;background:var(--card);border:1px solid color-mix(in srgb,var(--a2) 45%,var(--card-b))}
   .cmp h4{font-family:"Space Grotesk",sans-serif;font-size:1rem;margin-bottom:10px}
+  .cmp-title{width:100%;font:inherit;font-weight:600;color:var(--text);background:var(--bg2);border:1px solid var(--card-b);border-radius:12px;padding:10px 14px;margin-bottom:8px}
+  .cmp-title:focus{outline:2px solid var(--a1);outline-offset:1px}
   .cmp textarea{width:100%;min-height:96px;resize:vertical;font:inherit;color:var(--text);background:var(--bg2);border:1px solid var(--card-b);border-radius:12px;padding:12px 14px;line-height:1.6}
   .cmp textarea:focus{outline:2px solid var(--a1);outline-offset:1px}
   .cmp-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
@@ -227,10 +235,11 @@ function buildUI() {
   ui.photo = mk('🖼 Photo', pickPhoto, 'hide');
   ui.settings = mk('⚙ Settings', openSettings);
   ui.history = mk('🕘 History', openHistory);
+  ui.comments = mk('💬 Comments', openComments);
   ui.done = mk('Done', done, 'hide');
   ui.discard = mk('↩ Discard', discard, 'hide danger');
   ui.logout = mk('Logout', () => backend && backend.logout());
-  ui.bar = h('div', { id: 'cms-bar', class: 'cms-ui' }, ui.who, ui.edit, ui.save, ui.photo, ui.settings, ui.history, ui.done, ui.discard, ui.logout);
+  ui.bar = h('div', { id: 'cms-bar', class: 'cms-ui' }, ui.who, ui.edit, ui.save, ui.photo, ui.comments, ui.settings, ui.history, ui.done, ui.discard, ui.logout);
 
   ui.item = h('div', { id: 'cms-item', class: 'cms-ui' },
     h('button', { title: 'Move up / earlier', onclick: () => moveItem(-1) }, '↑'),
@@ -583,6 +592,8 @@ let composer = null;
 function mountPosts() {
   if (!window.POSTS) return;
   window.POSTS.setAdmin(true); window.POSTS.onAction(postAction);
+  window.POSTS.onAdminComment((post, text) => backend.commentInsert({ post_id: post.id, name: 'Md. Kanon Ahmed', body: text, approved: true }));
+  refreshPending();
   const slot = $('#composer-slot');
   if (slot && !composer) { composer = buildEditor({ post: null, onDone: () => { window.POSTS.reload(); } }); slot.appendChild(composer); }
 }
@@ -613,7 +624,9 @@ function localInputValue(date) {
 function buildEditor({ post, onDone }) {
   const items = (post && post.images ? post.images : []).map(u => ({ url: u, old: true }));
   const removed = [];
-  const ta = h('textarea', { placeholder: 'Write an update: a meeting, an event, news or just a thought. Add photos below.' });
+  const title = h('input', { type: 'text', maxlength: '140', placeholder: 'Blog title (optional)', class: 'cmp-title' });
+  title.value = post && post.title ? post.title : '';
+  const ta = h('textarea', { placeholder: 'Write your post: a meeting, an event, news or a story. Add photos below.' });
   ta.value = post ? post.body : '';
   const sel = h('select', {}, ...POST_KINDS.map(([v, l]) => h('option', { value: v }, l)));
   sel.value = post ? post.kind : 'update';
@@ -646,7 +659,7 @@ function buildEditor({ post, onDone }) {
   const go = h('button', { class: 'cms-btn pri', type: 'button' }, post ? 'Save changes' : 'Post');
   go.addEventListener('click', async () => {
     const text = ta.value.trim();
-    if (!text && !items.length) { say('Write something or add a photo first.', true); return; }
+    if (!text && !items.length && !title.value.trim()) { say('Write something or add a photo first.', true); return; }
     go.disabled = true;
     try {
       const urls = []; const fresh = items.filter(i => i.blob).length; let n = 0;
@@ -655,11 +668,11 @@ function buildEditor({ post, onDone }) {
         else urls.push(it.url);
       }
       say(post ? 'Saving…' : 'Posting…');
-      const row = { body: text, kind: sel.value, images: urls, posted_at: new Date(dt.value || Date.now()).toISOString() };
+      const row = { title: title.value.trim(), body: text, kind: sel.value, images: urls, posted_at: new Date(dt.value || Date.now()).toISOString() };
       if (post) { await backend.postUpdate(post.id, row); if (removed.length) backend.deleteImages(removed).catch(() => {}); }
       else { row.created_by = user.email; await backend.postInsert(row); }
       items.forEach(i => { if (!i.old) URL.revokeObjectURL(i.url); });
-      if (!post) { ta.value = ''; items.length = 0; sel.value = 'update'; dt.value = localInputValue(Date.now()); drawPreviews(); }
+      if (!post) { title.value = ''; ta.value = ''; items.length = 0; sel.value = 'update'; dt.value = localInputValue(Date.now()); drawPreviews(); }
       say(''); toast(post ? 'Post updated.' : 'Posted! It is now live on your site.', 'ok');
       onDone && onDone();
     } catch (e) {
@@ -670,7 +683,8 @@ function buildEditor({ post, onDone }) {
   });
 
   const wrap = h('div', { class: 'cmp' },
-    h('h4', {}, post ? 'Edit post' : '✍️ New post'),
+    h('h4', {}, post ? 'Edit post' : '✍️ New blog post'),
+    title,
     ta,
     prev,
     h('div', { class: 'cmp-row' }, sel, dt,
@@ -694,3 +708,39 @@ async function postAction(act, p) {
     }
   } catch (e) { console.error(e); toast('Action failed: ' + (e.message || e), 'warn'); }
 }
+
+
+/* ================= comment moderation ================= */
+async function refreshPending() {
+  try {
+    const rows = await backend.commentsAll();
+    const n = rows.filter(r => !r.approved).length;
+    ui.comments.textContent = n ? '💬 Comments (' + n + ' new)' : '💬 Comments';
+  } catch (e) { /* posts SQL not run yet or offline: ignore */ }
+}
+
+async function openComments() {
+  const box = h('div', { class: 'cms-modal', style: 'width:min(640px,100%)' }, h('h3', {}, 'Comments'), h('p', {}, 'Loading…'));
+  openModal(box);
+  try {
+    const rows = await backend.commentsAll();
+    box.textContent = '';
+    const pending = rows.filter(r => !r.approved);
+    box.append(h('h3', {}, 'Comments'), h('p', {}, rows.length ? (pending.length ? pending.length + ' waiting for your approval. Visitors only see approved comments.' : 'All comments are approved.') : 'No comments yet.'));
+    rows.forEach(c => {
+      const row = h('div', { class: 'row', style: 'align-items:flex-start' },
+        h('div', { style: 'min-width:0;flex:1' },
+          h('b', {}, c.name), ' ', h('small', {}, new Date(c.created_at).toLocaleString() + ' · post #' + c.post_id + (c.approved ? '' : ' · ⏳ pending')),
+          h('div', { style: 'margin-top:4px;word-break:break-word;white-space:pre-wrap' }, c.body)),
+        h('div', { style: 'display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end' },
+          c.approved ? null : h('button', { class: 'cms-btn pri', onclick: async () => { await backend.commentApprove(c.id); afterModeration(); } }, 'Approve'),
+          h('button', { class: 'cms-btn danger', onclick: async () => { if (!confirm('Delete this comment?')) return; await backend.commentDelete(c.id); afterModeration(); } }, 'Delete')));
+      box.append(row);
+    });
+    box.append(h('div', { class: 'foot' }, h('button', { class: 'cms-btn', onclick: closeModal }, 'Close')));
+  } catch (e) {
+    console.error(e); box.textContent = '';
+    box.append(h('h3', {}, 'Comments'), h('p', {}, 'Could not load: ' + (e.message || e)), h('div', { class: 'foot' }, h('button', { class: 'cms-btn', onclick: closeModal }, 'Close')));
+  }
+}
+function afterModeration() { refreshPending(); window.POSTS && window.POSTS.reload(); openComments(); }

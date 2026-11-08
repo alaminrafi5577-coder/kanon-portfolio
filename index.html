@@ -260,7 +260,40 @@
   .foot p{color:var(--muted);font-size:.9rem;max-width:340px}
   .copy{text-align:center;color:var(--muted);font-size:.82rem;margin-top:34px;padding-top:22px;border-top:1px solid var(--card-b)}
 
-  /* latest updates feed */
+  /* blogs feed */
+  .ptitle{font-size:1.3rem;line-height:1.3;margin:2px 0 8px}
+  .post.flash{outline:2px solid var(--a2);outline-offset:4px;animation:flash 1.2s ease-in-out 3}
+  @keyframes flash{50%{box-shadow:0 0 0 8px rgba(167,139,250,.28)}}
+  .pstats{display:flex;gap:14px;align-items:center;margin-top:14px;font-size:.84rem;color:var(--muted);min-height:4px}
+  .pstats:empty{display:none}
+  .plink{background:none;border:0;font:inherit;color:var(--muted);cursor:pointer;padding:0;margin-left:auto}
+  .plink:hover{color:var(--text);text-decoration:underline}
+  .pacts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--card-b)}
+  .pacts button{font:inherit;font-size:.9rem;font-weight:600;cursor:pointer;color:var(--muted);background:transparent;border:0;border-radius:10px;padding:9px 6px;transition:.15s}
+  .pacts button:hover{background:var(--card-b);color:var(--text)}
+  .pacts button.on{color:var(--a1)}
+  .pshare{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .pshare[hidden],.pcom[hidden]{display:none}
+  .pshare a,.pshare button{font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--text);background:var(--bg2);border:1px solid var(--card-b);border-radius:999px;padding:6px 13px}
+  .pshare a:hover,.pshare button:hover{border-color:var(--a2)}
+  .pcom{margin-top:12px;padding-top:12px;border-top:1px solid var(--card-b)}
+  .pc{display:flex;gap:10px;margin-bottom:12px}
+  .pc-av{flex:none;width:34px;height:34px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.9rem}
+  .pc-b{background:var(--bg2);border:1px solid var(--card-b);border-radius:14px;padding:8px 13px;min-width:0;font-size:.92rem;word-break:break-word}
+  .pc-b b{font-size:.88rem}
+  .pc-b small{color:var(--muted);font-size:.74rem;margin-left:6px}
+  .pc-empty{color:var(--muted);font-size:.88rem;margin:0 0 10px}
+  .pform{display:grid;gap:8px;margin-top:6px}
+  .pform input,.pform textarea{font:inherit;color:var(--text);background:var(--bg2);border:1px solid var(--card-b);border-radius:12px;padding:9px 12px;width:100%}
+  .pform textarea{min-height:70px;resize:vertical}
+  .pform input:focus,.pform textarea:focus{outline:2px solid var(--a1);outline-offset:1px}
+  .pform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .pf-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .pf-row small{color:var(--muted);font-size:.78rem}
+  .pf-msg{font-size:.84rem;min-height:0;margin:0}
+  .pf-msg.ok{color:var(--ok)}.pf-msg.err{color:#fb7185}
+  @media(max-width:520px){.pacts button{font-size:.82rem}}
+  /* latest posts feed */
   .posts{display:grid;gap:20px;max-width:760px;margin:0 auto}
   .post{padding:20px 22px}
   .phead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
@@ -340,7 +373,7 @@
   <div class="wrap">
     <a href="#home" class="logo" aria-label="Md. Kanon Ahmed, home"><span class="mono">K</span><span>Kanon Ahmed<small>Managing Director · A&amp;R</small></span></a>
     <ul id="menu">
-      <li><a class="lk" href="#updates">Updates</a></li>
+      <li><a class="lk" href="#blogs">Blogs</a></li>
       <li><a class="lk" href="#about">About</a></li>
       <li class="dd">
         <button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false">Companies</button>
@@ -415,12 +448,12 @@
 </div>
 
 <!-- ABOUT -->
-<section id="updates">
+<section id="blogs">
   <div class="wrap">
-    <div data-region="updates-head">
-      <div class="eyebrow reveal">Latest updates</div>
-      <h2 class="reveal">News, meetings &amp; <span class="grad-text">moments</span></h2>
-      <p class="sub reveal">Regular updates from my companies: meetings, events, announcements and photos.</p>
+    <div data-region="blogs-head">
+      <div class="eyebrow reveal">Latest posts</div>
+      <h2 class="reveal"><span class="grad-text">Blogs</span></h2>
+      <p class="sub reveal">News, meetings, events and stories from my companies, with photos. Like, comment and share.</p>
     </div>
     <div id="composer-slot"></div>
     <div id="posts" class="posts" aria-live="polite"></div>
@@ -738,7 +771,7 @@
       </div>
       <div>
         <h4>Explore</h4>
-        <ul><li><a href="#updates">Updates</a></li><li><a href="#about">About</a></li><li><a href="#ar">A&amp;R Entrepreneur</a></li><li><a href="#yeepix">Yeepix</a></li><li><a href="#services">Services</a></li><li><a href="#office">Offices</a></li></ul>
+        <ul><li><a href="#blogs">Blogs</a></li><li><a href="#about">About</a></li><li><a href="#ar">A&amp;R Entrepreneur</a></li><li><a href="#yeepix">Yeepix</a></li><li><a href="#services">Services</a></li><li><a href="#office">Offices</a></li></ul>
       </div>
       <div>
         <h4>Reach us</h4>
