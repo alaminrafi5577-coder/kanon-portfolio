@@ -10,5 +10,5 @@ window.SITE_CONFIG = {
   },
   // Admin email(s) allowed to edit the site (the account you create in Firebase Authentication).
   // Must match the list inside firestore.rules.
-  adminEmails: ["YOUR_ADMIN_EMAIL@gmail.com"]
+  adminEmails: ["ahmedkanon1994@gmail.com"]
 };
