@@ -16,7 +16,7 @@ const ui = {};
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-const isAdmin = u => !!(u && u.emailVerified && (DEMO || ADMINS.includes(String(u.email).toLowerCase())));
+const isAdmin = u => !!(u && (DEMO || ADMINS.includes(String(u.email || '').toLowerCase())));
 const setHint = () => { try { localStorage.setItem(CMS.hintKey, '1'); } catch (e) {} };
 const clearHint = () => { try { localStorage.removeItem(CMS.hintKey); } catch (e) {} };
 
@@ -30,7 +30,8 @@ async function makeFirebase() {
   const au = auth.getAuth(a), db = fs.getFirestore(a);
   return {
     onUser: cb => auth.onAuthStateChanged(au, cb),
-    login() { const p = new auth.GoogleAuthProvider(); p.setCustomParameters({ prompt: 'select_account' }); return auth.signInWithPopup(au, p); },
+    login: (email, pw) => auth.signInWithEmailAndPassword(au, email, pw),
+    reset: email => auth.sendPasswordResetEmail(au, email),
     logout: () => auth.signOut(au),
     async read() { const s = await fs.getDoc(fs.doc(db, 'site', 'content')); return s.exists() ? s.data().json : null; },
     async write(json, email) { await fs.setDoc(fs.doc(db, 'site', 'content'), { json, updatedAt: fs.serverTimestamp(), by: email }); },
@@ -55,6 +56,7 @@ function makeDemo() {
     demo: true,
     onUser(f) { cb = f; setTimeout(() => cb(u), 0); },
     async login() { u = { email: 'demo@local', emailVerified: true }; set('cms.demo.user', '1'); cb(u); },
+    async reset() {},
     async logout() { u = null; try { localStorage.removeItem('cms.demo.user'); } catch (e) { delete mem['cms.demo.user']; } cb(null); },
     async read() { return get('cms.demo.content'); },
     async write(json) { set('cms.demo.content', json); },
@@ -91,7 +93,7 @@ async function onUser(u) {
     } catch (e) { console.error(e); toast('Signed in, but could not read saved content: ' + (e.message || e), 'warn'); }
     showBar();
   } else if (u) {
-    toast('That Google account is not allowed to edit this site.', 'warn');
+    toast('That account is not allowed to edit this site.', 'warn');
     clearHint(); backend.logout(); showLogin();
   } else {
     clearHint(); hideBar(); if (editing) leaveEdit();
@@ -178,12 +180,16 @@ function buildUI() {
   ui.toast = h('div', { id: 'cms-toast', class: 'cms-ui' });
   ui.file = h('input', { type: 'file', accept: 'image/*', style: 'display:none', onchange: onPhotoFile });
 
-  ui.loginBack = h('div', { class: 'cms-back cms-ui' }, h('div', { class: 'cms-modal', style: 'text-align:center' },
+  ui.loginBack = h('div', { class: 'cms-back cms-ui' }, h('form', { class: 'cms-modal', style: 'text-align:center;max-width:380px', novalidate: '', onsubmit: e => { e.preventDefault(); doLogin(); } },
     h('h3', {}, 'Admin login'),
-    h('p', { id: 'cms-login-msg' }, 'Sign in with the Google account that owns this site.'),
+    h('p', { id: 'cms-login-msg' }, 'Enter the admin email and password.'),
+    h('input', { id: 'cms-email', type: 'email', placeholder: 'Email', autocomplete: 'username', style: 'margin-bottom:8px' }),
+    h('input', { id: 'cms-pass', type: 'password', placeholder: 'Password', autocomplete: 'current-password' }),
+    h('p', { id: 'cms-login-err', style: 'color:#fb7185;min-height:20px;margin:8px 0 0' }),
     h('div', { class: 'foot', style: 'justify-content:center' },
-      h('button', { class: 'cms-btn pri', type: 'button', onclick: doLogin }, DEMO ? 'Start demo session' : 'Sign in with Google'),
-      h('button', { class: 'cms-btn', type: 'button', onclick: hideLogin }, 'Cancel'))));
+      h('button', { class: 'cms-btn pri', type: 'submit' }, DEMO ? 'Start demo session' : 'Sign in'),
+      h('button', { class: 'cms-btn', type: 'button', onclick: hideLogin }, 'Cancel')),
+    h('p', { style: 'margin:12px 0 0' }, h('a', { href: '#', style: 'color:var(--a1);font-size:13px', onclick: e => { e.preventDefault(); doReset(); } }, 'Forgot password?'))));
   ui.modalBack = h('div', { class: 'cms-back cms-ui', onclick: e => { if (e.target === ui.modalBack) closeModal(); } });
 
   document.body.append(ui.bar, ui.item, ui.prop, ui.toast, ui.file, ui.loginBack, ui.modalBack);
@@ -210,12 +216,29 @@ function hideBar() { ui.bar.classList.remove('on'); }
 function showLogin() {
   if (!ui.loginBack) return;
   ui.loginBack.classList.add('on');
-  $('#cms-login-msg').textContent = DEMO ? 'Local demo mode: no real login. Changes stay in this browser only.' : 'Sign in with the Google account that owns this site.';
+  $('#cms-login-msg').textContent = DEMO ? 'Local demo mode: no real login. Changes stay in this browser only.' : 'Enter the admin email and password.';
+  const em = $('#cms-email'); if (em && !DEMO) setTimeout(() => em.focus(), 50);
 }
 function hideLogin() { ui.loginBack && ui.loginBack.classList.remove('on'); }
 async function doLogin() {
-  try { await backend.login(); }
-  catch (e) { console.error(e); if (e && e.code !== 'auth/popup-closed-by-user') toast('Login failed: ' + (e.code || e.message || e), 'warn'); }
+  const em = $('#cms-email').value.trim(), pw = $('#cms-pass').value, msg = $('#cms-login-err');
+  msg.textContent = '';
+  if (!DEMO && (!em || !pw)) { msg.textContent = 'Enter your email and password.'; return; }
+  try { await backend.login(em, pw); $('#cms-pass').value = ''; }
+  catch (e) {
+    const c = (e && e.code) || '';
+    msg.textContent = /invalid|wrong-password|user-not-found|credential/.test(c) ? 'Wrong email or password.'
+      : /too-many/.test(c) ? 'Too many attempts. Wait a few minutes, or use Forgot password.'
+      : /network/.test(c) ? 'Network problem. Please try again.'
+      : 'Login failed (' + (c || e.message || 'unknown') + ').';
+  }
+}
+async function doReset() {
+  const em = $('#cms-email').value.trim(), msg = $('#cms-login-err');
+  if (DEMO) { msg.textContent = 'Not available in demo mode.'; return; }
+  if (!em) { msg.textContent = 'Type your admin email above first.'; return; }
+  try { await backend.reset(em); msg.style.color = '#34d399'; msg.textContent = 'If that email has an admin account, a reset link was sent.'; }
+  catch (e) { msg.style.color = '#fb7185'; msg.textContent = 'Could not send the reset email.'; }
 }
 function toast(msg, kind) {
   buildUI();
